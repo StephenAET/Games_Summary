@@ -16,6 +16,6 @@ public interface GamePresenter extends MvpPresenter<GameView> {
     /**
      * Request the Game from the interactor
      */
-    void performGame();
+    void performGame(String id);
 
 }

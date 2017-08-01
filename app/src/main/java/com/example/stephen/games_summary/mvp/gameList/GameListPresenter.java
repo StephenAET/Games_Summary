@@ -16,5 +16,5 @@ public interface GameListPresenter extends MvpPresenter<GameListView> {
     /**
      * Request the Games List from the interactor
      */
-    void performGameList();
+    void performGameList(String filter);
 }

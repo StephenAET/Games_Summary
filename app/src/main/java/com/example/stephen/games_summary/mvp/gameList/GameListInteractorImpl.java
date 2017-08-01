@@ -1,8 +1,9 @@
 package com.example.stephen.games_summary.mvp.gameList;
 
-import com.example.stephen.games_summary.giantBomb.BaseInteractor;
 import com.example.stephen.games_summary.giantBomb.GiantBombConstants;
-import com.example.stephen.games_summary.model.GameListRequest;
+import com.example.stephen.games_summary.model.Request;
+import com.example.stephen.games_summary.mvp.BaseInteractor;
+import com.example.stephen.games_summary.util.RxSchedulers;
 
 import io.reactivex.Observable;
 
@@ -12,14 +13,11 @@ import io.reactivex.Observable;
 
 public class GameListInteractorImpl extends BaseInteractor implements GameListInteractor {
 
+    RxSchedulers rxSchedulers = new RxSchedulers();
 
     @Override
-    public Observable<GameListRequest> getGameListRequest() {
-        return getGiantBombApi().getGameListRequest(GiantBombConstants.V_API_KEY, GiantBombConstants.V_FORMAT);
-    }
-
-    @Override
-    public Observable<GameListRequest> getGameListRequest(String filter) {
-        return getGiantBombApi().getGameListRequest(GiantBombConstants.V_API_KEY, GiantBombConstants.V_FORMAT, filter);
+    public Observable<Request> getGameListRequest(String filter) {
+        return getGiantBombApi().getGameListRequest(GiantBombConstants.API_KEY_VALUE, GiantBombConstants.JSON, filter)
+                .compose(rxSchedulers.applyObservableAsync());
     }
 }

@@ -47,6 +47,6 @@ public class ExampleInstrumentedTest {
     public void gameListPresenterPerformGameList(){
 
         GameListPresenterImpl gameListPresenter = Mockito.mock(GameListPresenterImpl.class);
-        gameListPresenter.performGameList();
+        gameListPresenter.performGameList("");
     }
 }

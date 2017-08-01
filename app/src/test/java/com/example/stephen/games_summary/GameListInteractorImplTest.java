@@ -1,8 +1,7 @@
 package com.example.stephen.games_summary;
 
-import com.example.stephen.games_summary.giantBomb.BaseInteractor;
-import com.example.stephen.games_summary.model.GameListRequest;
-import com.example.stephen.games_summary.model.GameRequest;
+import com.example.stephen.games_summary.model.Request;
+import com.example.stephen.games_summary.mvp.BaseInteractor;
 import com.example.stephen.games_summary.mvp.game.GameInteractorImpl;
 import com.example.stephen.games_summary.mvp.gameList.GameListInteractorImpl;
 
@@ -27,7 +26,7 @@ public class GameListInteractorImplTest {
     GameInteractorImpl gameInteractor;
 
     @Mock
-    GameRequest gameRequest;
+    Request request;
 
     @Before
     public void setUp() throws Exception {
@@ -44,18 +43,21 @@ public class GameListInteractorImplTest {
     @Test
     public void gameListInteractorGetList(){
         GameListInteractorImpl gameListInteractor = Mockito.mock(GameListInteractorImpl.class);
-        Observable<GameListRequest> gameListRequestObservable = gameListInteractor.getGameListRequest();
+        Observable<Request> gameListRequestObservable = gameListInteractor.getGameListRequest("");
         Assert.assertNotEquals(gameListRequestObservable, null);
     }
 
     @Test
     public void gameInteractorGetList(){
 
+        //This ID points to a game page for Dark Souls III
         String string = "3030-49884";
 
         when(gameInteractor.getGameRequest(string))
-                .thenReturn(Observable.just(gameRequest));
+                .thenReturn(Observable.just(request));
 
         Assert.assertNotEquals(null, gameInteractor.getGameRequest(string));
     }
+
+
 }

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GenreRequest {
+public class Request {
 
     @SerializedName("error")
     @Expose

@@ -14,31 +14,34 @@ public class GiantBombConstants {
     /**
      * API Key is required to make Giant Bomb Requests
      */
-    public static final String Q_API_KEY = "api_key";
-    public static final String V_API_KEY = "1ea38da7024e688b72884542c417a0dcdab6b80e";
+    public static final String API_KEY_QUERY = "api_key";
+    public static final String API_KEY_VALUE = "1ea38da7024e688b72884542c417a0dcdab6b80e";
 
     /**
      * Unless specified, the request will return html
      */
-    public static final String Q_FORMAT = "format";
-    public static final String V_FORMAT = "json";
+    public static final String FORMAT_QUERY = "format";
+    public static final String JSON = "json";
 
-    public static final String P_ID = "id";
+    public static final String ID_PATH = "id";
 
     /**
      * Used for filtering Results
      */
-    public static final String Q_FILTER = "filter";
+    public static final String FILTER_QUERY = "filter";
 
     /**
      * Limit number of results
      */
-    public static final String Q_LIMIT = "limit";
+    public static final String LIMIT_QUERY = "limit";
 
     /**
      * Get Data
      */
-    public static final String B_GAME = "game/";
-    public static final String B_GAMES = "games/";
-    public static final String B_GENRES = "genres/";
+    public static final String GAME_PATH = "game/";
+    public static final String GAMES_PATH = "games/";
+    public static final String GENRES_PATH = "genres/";
+
+    public static final String NAME_FILTER = "name=";
+    public static final String GENRE_FILTER = "genre=";
 }

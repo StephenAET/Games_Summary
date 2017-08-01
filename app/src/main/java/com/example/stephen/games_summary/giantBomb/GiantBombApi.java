@@ -1,7 +1,6 @@
 package com.example.stephen.games_summary.giantBomb;
 
-import com.example.stephen.games_summary.model.GameListRequest;
-import com.example.stephen.games_summary.model.GameRequest;
+import com.example.stephen.games_summary.model.Request;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -15,43 +14,49 @@ import retrofit2.http.Query;
 public interface GiantBombApi {
 
     /**
-     * Unfiltered Game List
-     * @param api_key
-     * @param format
-     * @return
-     */
-    @GET(GiantBombConstants.BASE_URL)
-    public Observable<GameListRequest> getGameListRequest(
-            @Query(GiantBombConstants.Q_API_KEY) String api_key,
-            @Query(GiantBombConstants.Q_FORMAT) String format
-    );
-
-    /**
      * Get Filtered Game List
+     *
      * @param api_key
      * @param format
      * @param filter
      * @return
      */
-    @GET(GiantBombConstants.BASE_URL)
-
-    public Observable<GameListRequest> getGameListRequest(
-            @Query(GiantBombConstants.Q_API_KEY) String api_key,
-            @Query(GiantBombConstants.Q_FORMAT) String format,
-            @Query(GiantBombConstants.Q_FILTER) String filter
+    @GET(GiantBombConstants.BASE_URL +
+            GiantBombConstants.GAMES_PATH)
+    public Observable<Request> getGameListRequest(
+            @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
+            @Query(GiantBombConstants.FORMAT_QUERY) String format,
+            @Query(GiantBombConstants.FILTER_QUERY) String filter
     );
 
     /**
+     * Get Game by ID
      *
      * @param id
      * @param api_key
      * @param format
      * @return
      */
-    @GET(GiantBombConstants.BASE_URL + "{+"+ GiantBombConstants.P_ID +"+}/")
-    public Observable<GameRequest> getGameRequest(
+    @GET(GiantBombConstants.BASE_URL +
+            GiantBombConstants.GAME_PATH + "{" +
+            GiantBombConstants.ID_PATH + "}/")
+    public Observable<Request> getGameRequest(
             @Path("id") String id,
-            @Query(GiantBombConstants.Q_API_KEY) String api_key,
-            @Query(GiantBombConstants.Q_FORMAT) String format
+            @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
+            @Query(GiantBombConstants.FORMAT_QUERY) String format
+    );
+
+    /**
+     * Get Genres
+     *
+     * @param api_key
+     * @param format
+     * @return
+     */
+    @GET(GiantBombConstants.BASE_URL +
+            GiantBombConstants.GENRES_PATH)
+    public Observable<Request> getGenresRequest(
+            @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
+            @Query(GiantBombConstants.FORMAT_QUERY) String format
     );
 }

@@ -1,5 +1,7 @@
-package com.example.stephen.games_summary.giantBomb;
+package com.example.stephen.games_summary.mvp;
 
+import com.example.stephen.games_summary.giantBomb.GiantBombApi;
+import com.example.stephen.games_summary.giantBomb.GiantBombConstants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import okhttp3.OkHttpClient;
@@ -23,7 +25,7 @@ public class BaseInteractor {
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")//Pass the Base URL here for making requests
+                .baseUrl(GiantBombConstants.BASE_URL)//Pass the Base URL here for making requests
                 .addConverterFactory(gsonConverterFactory)//Create and Pass the Converter Factory for interpreting the Request Data
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//Create and Pass the Call Adapter Factory for
                 .client(okHttpClient)
@@ -33,6 +35,7 @@ public class BaseInteractor {
     }
 
     public GiantBombApi getGiantBombApi(){
+
         return giantBombApi;
     }
 }

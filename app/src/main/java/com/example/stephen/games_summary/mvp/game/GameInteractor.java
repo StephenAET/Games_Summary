@@ -1,6 +1,6 @@
 package com.example.stephen.games_summary.mvp.game;
 
-import com.example.stephen.games_summary.model.GameRequest;
+import com.example.stephen.games_summary.model.Request;
 
 import io.reactivex.Observable;
 
@@ -13,5 +13,10 @@ import io.reactivex.Observable;
  */
 public interface GameInteractor {
 
-    Observable<GameRequest> getGameRequest(String id);
+    /**
+     * Get a Game Request
+     * @param id
+     * @return
+     */
+    Observable<Request> getGameRequest(String id);
 }

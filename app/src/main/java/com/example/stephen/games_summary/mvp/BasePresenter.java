@@ -4,6 +4,8 @@ package com.example.stephen.games_summary.mvp;
  * Created by Stephen on 31/07/2017.
  */
 
+import com.example.stephen.games_summary.fun.SillyConstants;
+
 /**
  * Base Presenter handles most of the boilerplate associated with managing MVP managed Views
  * @param <T>
@@ -56,7 +58,8 @@ public class BasePresenter <T extends MvpView> implements MvpPresenter<T> {
      */
     public static class MvpViewNotAttachedException extends RuntimeException {
         public MvpViewNotAttachedException() {
-            super("Please call Presenter.attachView(MvpView) before" + " requesting data to the Presenter");
+            super("Hey pal, Please call Presenter.attachView(MvpView) before" +
+                    " requesting data to the Presenter! "+ SillyConstants.TABLE_FLIP);
         }
     }
 }

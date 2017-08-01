@@ -1,6 +1,6 @@
 package com.example.stephen.games_summary.mvp.gameList;
 
-import com.example.stephen.games_summary.model.GameListRequest;
+import com.example.stephen.games_summary.model.Request;
 
 import io.reactivex.Observable;
 
@@ -13,6 +13,10 @@ import io.reactivex.Observable;
  */
 public interface GameListInteractor {
 
-    Observable<GameListRequest> getGameListRequest();
-    Observable<GameListRequest> getGameListRequest(String filter);
+    /**
+     * Get a Game List Request
+     * @param filter
+     * @return
+     */
+    Observable<Request> getGameListRequest(String filter);
 }

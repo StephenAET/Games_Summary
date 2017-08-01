@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary.mvp.gameList;
+package com.example.stephen.games_summary.mvp.game;
 
 import com.example.stephen.games_summary.model.Request;
 import com.example.stephen.games_summary.mvp.BasePresenter;
@@ -6,32 +6,30 @@ import com.example.stephen.games_summary.mvp.BasePresenter;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
- * Created by Stephen on 31/07/2017.
+ * Created by Stephen on 01/08/2017.
  */
 
-public class GameListPresenterImpl extends BasePresenter<GameListView> implements GameListPresenter {
+public class GamePresenterImpl extends BasePresenter<GameView> implements GamePresenter {
 
     //Presenter requires an Interactor
-    GameListInteractor gameListInteractor;
+    GameInteractor gameInteractor;
 
     //Disposable for making Async Requests
     CompositeDisposable disposable = new CompositeDisposable();
 
     /**
      * Create Game List Presenter
-     * @param gameListInteractor The Presenter needs a Game List Interactor to perform Requests
+     * @param gameInteractor The Presenter needs a Game List Interactor to perform Requests
      */
-    public GameListPresenterImpl(GameListInteractor gameListInteractor){
-         this.gameListInteractor = gameListInteractor;
+    public GamePresenterImpl(GameInteractor gameInteractor){
+        this.gameInteractor = gameInteractor;
     }
-
-
 
     /**
      * Perform a Disposable Game List Request
      */
     @Override
-    public void performGameList(String filter) {
+    public void performGame(String id) {
 
         //Make sure the View is attached before attempting to do anything
         checkViewAttached();
@@ -40,9 +38,8 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
         getView().onFetchDataStarted();
 
         //Perform a Disposable Request and Subscribe to it
-        disposable.add(gameListInteractor.getGameListRequest(filter)
-                .subscribe(this::success, this::onError)
-        );
+        disposable.add(gameInteractor.getGameRequest(id)
+                .subscribe(this::onSuccess, this::onError));
     }
 
     /**
@@ -54,10 +51,10 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
     }
 
     /**
-     * The view will be notified that the Request Succeeded and given the Game List Request Data
-     * @param request The Game List Request Data
+     * The view will be notified that the Request Succeeded and given the Game Request Data
+     * @param request The Game Request Data
      */
-    private void success(Request request) {
+    private void onSuccess(Request request) {
         getView().onFetchDataSuccess(request);
         getView().onFetchDataCompleted();
     }
@@ -66,7 +63,7 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
      * Upon detaching the View, the disposable needs to be cleared
      */
     @Override
-    public void detachView(){
+    public void detachView() {
         super.detachView();
         disposable.clear();
     }

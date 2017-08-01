@@ -1,13 +1,9 @@
 
 package com.example.stephen.games_summary.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+public class OLDASFUCKBOI {
 
-import java.util.List;
-
-public class GameListRequest {
-
+    /*
     @SerializedName("error")
     @Expose
     private String error;
@@ -28,7 +24,10 @@ public class GameListRequest {
     private Integer statusCode;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private Results results;
+    @SerializedName("version")
+    @Expose
+    private String version;
 
     public String getError() {
         return error;
@@ -78,12 +77,20 @@ public class GameListRequest {
         this.statusCode = statusCode;
     }
 
-    public List<Result> getResults() {
+    public Results getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(Results results) {
         this.results = results;
     }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }*/
 
 }
