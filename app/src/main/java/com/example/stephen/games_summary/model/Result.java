@@ -28,16 +28,16 @@ public class Result {
     private String description;
     @SerializedName("expected_release_day")
     @Expose
-    private Object expectedReleaseDay;
+    private Integer expectedReleaseDay;
     @SerializedName("expected_release_month")
     @Expose
-    private Object expectedReleaseMonth;
+    private Integer expectedReleaseMonth;
     @SerializedName("expected_release_quarter")
     @Expose
-    private Object expectedReleaseQuarter;
+    private Integer expectedReleaseQuarter;
     @SerializedName("expected_release_year")
     @Expose
-    private Object expectedReleaseYear;
+    private Integer expectedReleaseYear;
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -111,35 +111,35 @@ public class Result {
         this.description = description;
     }
 
-    public Object getExpectedReleaseDay() {
+    public Integer getExpectedReleaseDay() {
         return expectedReleaseDay;
     }
 
-    public void setExpectedReleaseDay(Object expectedReleaseDay) {
+    public void setExpectedReleaseDay(Integer expectedReleaseDay) {
         this.expectedReleaseDay = expectedReleaseDay;
     }
 
-    public Object getExpectedReleaseMonth() {
+    public Integer getExpectedReleaseMonth() {
         return expectedReleaseMonth;
     }
 
-    public void setExpectedReleaseMonth(Object expectedReleaseMonth) {
+    public void setExpectedReleaseMonth(Integer expectedReleaseMonth) {
         this.expectedReleaseMonth = expectedReleaseMonth;
     }
 
-    public Object getExpectedReleaseQuarter() {
+    public Integer getExpectedReleaseQuarter() {
         return expectedReleaseQuarter;
     }
 
-    public void setExpectedReleaseQuarter(Object expectedReleaseQuarter) {
+    public void setExpectedReleaseQuarter(Integer expectedReleaseQuarter) {
         this.expectedReleaseQuarter = expectedReleaseQuarter;
     }
 
-    public Object getExpectedReleaseYear() {
+    public Integer getExpectedReleaseYear() {
         return expectedReleaseYear;
     }
 
-    public void setExpectedReleaseYear(Object expectedReleaseYear) {
+    public void setExpectedReleaseYear(Integer expectedReleaseYear) {
         this.expectedReleaseYear = expectedReleaseYear;
     }
 

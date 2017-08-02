@@ -14,7 +14,8 @@ import retrofit2.http.Query;
 public interface GiantBombApi {
 
     /**
-     * Get Filtered Game List
+     * End Point 1 - Get Filtered Game List
+     * Get a Games List that can be filtered
      *
      * @param api_key
      * @param format
@@ -30,7 +31,8 @@ public interface GiantBombApi {
     );
 
     /**
-     * Get Game by ID
+     * End Point 2 - Get Game by ID
+     * This is used for getting data for a specific game by it's ID
      *
      * @param id
      * @param api_key
@@ -47,7 +49,8 @@ public interface GiantBombApi {
     );
 
     /**
-     * Get Genres
+     * End Point 3 - Get Genres,
+     * These can be used for a Drop down for filtering Games Lists by Genre
      *
      * @param api_key
      * @param format
@@ -59,4 +62,9 @@ public interface GiantBombApi {
             @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
             @Query(GiantBombConstants.FORMAT_QUERY) String format
     );
+
+    /**
+     * End Point 4 - Get Review?
+     * End Point 5 - Get
+     */
 }

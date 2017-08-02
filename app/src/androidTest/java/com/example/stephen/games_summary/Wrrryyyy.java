@@ -40,7 +40,7 @@ public class Wrrryyyy {
 
     @Test
     public void viewDoesAThing(){
-        onView(withId(R.id.imageView))            // withId(R.id.my_view) is a ViewMatcher
+        onView(withId(R.id.img_bookmark))            // withId(R.id.my_view) is a ViewMatcher
                 .perform(click())               // click() is a ViewAction
                 .check(matches(isDisplayed())); // matches(isDisplayed()) is a ViewAssertion
     }
