@@ -7,18 +7,18 @@ package com.example.stephen.games_summary.mvp;
 public interface MvpView {
 
     /**
-     * When a Request Begins
+     * When a RequestArray Begins
      */
     void onFetchDataStarted();
 
     /**
-     * When the Request Fails
+     * When the RequestArray Fails
      * @param e
      */
     void onFetchDataError(Throwable e);
 
     /**
-     * When the Request Completes
+     * When the RequestArray Completes
      */
     void onFetchDataCompleted();
 }

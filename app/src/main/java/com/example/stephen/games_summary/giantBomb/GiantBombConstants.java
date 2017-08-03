@@ -7,7 +7,7 @@ package com.example.stephen.games_summary.giantBomb;
 public class GiantBombConstants {
 
     /**
-     * Base URL for all Giant Bomb Request
+     * Base URL for all Giant Bomb RequestArray
      */
     public static final String BASE_URL = "http://www.giantbomb.com/api/";
 
@@ -44,4 +44,7 @@ public class GiantBombConstants {
 
     public static final String NAME_FILTER = "name=";
     public static final String GENRE_FILTER = "genre=";
+
+    public static final String SORT_QUERY = "sort";
+    public static final String DATE_DESC = "original_release_date:desc";
 }

@@ -1,6 +1,6 @@
 package com.example.stephen.games_summary;
 
-import com.example.stephen.games_summary.model.Request;
+import com.example.stephen.games_summary.model.RequestArray;
 import com.example.stephen.games_summary.mvp.BaseInteractor;
 import com.example.stephen.games_summary.mvp.game.GameInteractorImpl;
 import com.example.stephen.games_summary.mvp.gameList.GameListInteractorImpl;
@@ -26,7 +26,7 @@ public class GameListInteractorImplTest {
     GameInteractorImpl gameInteractor;
 
     @Mock
-    Request request;
+    RequestArray requestArray;
 
     @Before
     public void setUp() throws Exception {
@@ -43,7 +43,7 @@ public class GameListInteractorImplTest {
     @Test
     public void gameListInteractorGetList(){
         GameListInteractorImpl gameListInteractor = Mockito.mock(GameListInteractorImpl.class);
-        Observable<Request> gameListRequestObservable = gameListInteractor.getGameListRequest("");
+        Observable<RequestArray> gameListRequestObservable = gameListInteractor.getGameListRequest("");
         Assert.assertNotEquals(gameListRequestObservable, null);
     }
 
@@ -54,7 +54,7 @@ public class GameListInteractorImplTest {
         String string = "3030-49884";
 
         when(gameInteractor.getGameRequest(string))
-                .thenReturn(Observable.just(request));
+                .thenReturn(Observable.just(requestArray));
 
         Assert.assertNotEquals(null, gameInteractor.getGameRequest(string));
     }

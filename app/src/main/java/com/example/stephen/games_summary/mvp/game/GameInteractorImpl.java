@@ -1,7 +1,7 @@
 package com.example.stephen.games_summary.mvp.game;
 
 import com.example.stephen.games_summary.giantBomb.GiantBombConstants;
-import com.example.stephen.games_summary.model.Request;
+import com.example.stephen.games_summary.model.RequestSingle;
 import com.example.stephen.games_summary.mvp.BaseInteractor;
 
 import io.reactivex.Observable;
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 public class GameInteractorImpl extends BaseInteractor implements GameInteractor {
 
     @Override
-    public Observable<Request> getGameRequest(String id) {
+    public Observable<RequestSingle> getGameRequest(String id) {
         return getGiantBombApi().getGameRequest(id, GiantBombConstants.API_KEY_VALUE, GiantBombConstants.JSON);
     }
 }

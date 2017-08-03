@@ -14,7 +14,7 @@ import com.example.stephen.games_summary.mvp.MvpPresenter;
 public interface GameListPresenter extends MvpPresenter<GameListView> {
 
     /**
-     * Request the Games List from the interactor
+     * RequestArray the Games List from the interactor
      */
     void performGameList(String filter);
 }

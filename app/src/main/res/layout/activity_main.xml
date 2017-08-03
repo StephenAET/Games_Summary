@@ -18,28 +18,37 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_light_background"
-                android:gravity="center|right"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/tv_search_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/cardview_light_background"
                     android:ems="10"
                     android:inputType="textPersonName"
+                    android:padding="5dp"
                     android:text="Name"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
                     android:textColor="@color/colorAccent" />
 
-            </LinearLayout>
-            -->
+                <Button
+                    android:id="@+id/bt_search_button"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@android:drawable/ic_menu_search" />
 
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
+
+
 
     </android.support.design.widget.AppBarLayout>
 

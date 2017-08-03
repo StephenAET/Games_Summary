@@ -14,7 +14,7 @@ import com.example.stephen.games_summary.mvp.MvpPresenter;
 public interface GamePresenter extends MvpPresenter<GameView> {
 
     /**
-     * Request the Game from the interactor
+     * RequestArray the Game from the interactor
      */
     void performGame(String id);
 

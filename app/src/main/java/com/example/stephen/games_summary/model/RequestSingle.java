@@ -1,9 +1,14 @@
-
 package com.example.stephen.games_summary.model;
 
-public class OLDASFUCKBOI {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    /*
+/**
+ * Created by Stephen on 03/08/2017.
+ */
+
+public class RequestSingle {
+
     @SerializedName("error")
     @Expose
     private String error;
@@ -24,10 +29,7 @@ public class OLDASFUCKBOI {
     private Integer statusCode;
     @SerializedName("results")
     @Expose
-    private Results results;
-    @SerializedName("version")
-    @Expose
-    private String version;
+    private Result results = null;
 
     public String getError() {
         return error;
@@ -77,20 +79,11 @@ public class OLDASFUCKBOI {
         this.statusCode = statusCode;
     }
 
-    public Results getResult() {
+    public Result getResult() {
         return results;
     }
 
-    public void setResults(Results results) {
-        this.results = results;
+    public void setResult(Result result) {
+        this.results = result;
     }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }*/
-
 }

@@ -1,9 +1,15 @@
 package com.example.stephen.games_summary.mvp.gameList;
 
-import com.example.stephen.games_summary.model.Request;
-import com.example.stephen.games_summary.mvp.BasePresenter;
+import android.util.Log;
 
-import io.reactivex.disposables.CompositeDisposable;
+import com.example.stephen.games_summary.model.RequestArray;
+import com.example.stephen.games_summary.mvp.BasePresenter;
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Stephen on 31/07/2017.
@@ -14,9 +20,6 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
     //Presenter requires an Interactor
     GameListInteractor gameListInteractor;
 
-    //Disposable for making Async Requests
-    CompositeDisposable disposable = new CompositeDisposable();
-
     /**
      * Create Game List Presenter
      * @param gameListInteractor The Presenter needs a Game List Interactor to perform Requests
@@ -25,10 +28,8 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
          this.gameListInteractor = gameListInteractor;
     }
 
-
-
     /**
-     * Perform a Disposable Game List Request
+     * Perform a Disposable Game List RequestArray
      */
     @Override
     public void performGameList(String filter) {
@@ -36,31 +37,65 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
         //Make sure the View is attached before attempting to do anything
         checkViewAttached();
 
-        //Tell the View the Request has begun
+        //Tell the View the RequestArray has begun
         getView().onFetchDataStarted();
 
-        //Perform a Disposable Request and Subscribe to it
-        disposable.add(gameListInteractor.getGameListRequest(filter)
-                .subscribe(this::success, this::onError)
-        );
+        //Observe the Internet Connection and Respond to it's State
+        ReactiveNetwork.observeInternetConnectivity()
+                //Perform this on the IO thread
+                .subscribeOn(Schedulers.io())
+                //Observe on UI Thread
+                .observeOn(AndroidSchedulers.mainThread())
+                //React to Internet Connection State (On or Off)
+                .subscribe(new Consumer<Boolean>() {
+
+                    //Handle the State of the Internet
+                    @Override
+                    public void accept(@NonNull Boolean aBoolean) throws Exception {
+
+                        //If there is a connection, attempt to perform the RequestArray
+                        if (aBoolean){
+
+                            Log.i("RequestArray", "Internet Connection Available, Attempting RequestArray");
+
+                            //Perform a Disposable RequestArray (With an Observable)
+                            // Subscribe and Observe it
+                            gameListInteractor.getGameListRequest(filter)
+                                    //Perform on new Thread
+                                    .subscribeOn(Schedulers.newThread())
+                                    //Observe on UI Thread
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    //React to Result/s
+                                    .subscribe(this::success, this::onError);
+                        } else {
+
+                            Log.i("RequestArray", "No Connection Available, Not attempting RequestArray");
+                            //TODO Do something else if there is no Internet
+
+                            getView().onFetchDataCompleted();
+                        }
+                    }
+
+                    /**
+                     * If the Disposable RequestArray Fails, the view needs to know
+                     * @param throwable What caused the RequestArray to Fail
+                     */
+                    private void onError(Throwable throwable) {
+                        getView().onFetchDataError(throwable);
+                    }
+
+                    /**
+                     * The view will be notified that the RequestArray Succeeded and given the Game List RequestArray Data
+                     * @param requestArray The Game List RequestArray Data
+                     */
+                    private void success(RequestArray requestArray) {
+                        getView().onFetchDataSuccess(requestArray);
+                        getView().onFetchDataCompleted();
+                    }
+                });
     }
 
-    /**
-     * If the Disposable Request Fails, the view needs to know
-     * @param throwable What caused the Request to Fail
-     */
-    private void onError(Throwable throwable) {
-        getView().onFetchDataError(throwable);
-    }
 
-    /**
-     * The view will be notified that the Request Succeeded and given the Game List Request Data
-     * @param request The Game List Request Data
-     */
-    private void success(Request request) {
-        getView().onFetchDataSuccess(request);
-        getView().onFetchDataCompleted();
-    }
 
     /**
      * Upon detaching the View, the disposable needs to be cleared
@@ -68,6 +103,5 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
     @Override
     public void detachView(){
         super.detachView();
-        disposable.clear();
     }
 }

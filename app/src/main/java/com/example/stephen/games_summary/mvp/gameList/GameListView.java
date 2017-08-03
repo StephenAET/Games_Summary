@@ -4,7 +4,7 @@ package com.example.stephen.games_summary.mvp.gameList;
  * Created by Stephen on 31/07/2017.
  */
 
-import com.example.stephen.games_summary.model.Request;
+import com.example.stephen.games_summary.model.RequestArray;
 import com.example.stephen.games_summary.mvp.MvpView;
 
 /**
@@ -13,9 +13,9 @@ import com.example.stephen.games_summary.mvp.MvpView;
 public interface GameListView extends MvpView {
 
     /**
-     * Get back the Game List Request Data and do something with it
-     * @param request The Game List Request Data
+     * Get back the Game List RequestArray Data and do something with it
+     * @param requestArray The Game List RequestArray Data
      */
-    void onFetchDataSuccess(Request request);
+    void onFetchDataSuccess(RequestArray requestArray);
 
 }

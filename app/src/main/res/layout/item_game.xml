@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +22,7 @@
 
                 <ImageView
                     android:id="@+id/img_game_poster"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:background="@color/colorBack"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -49,6 +46,16 @@
                     app:layout_constraintTop_toTopOf="@+id/img_game_poster"
                     app:srcCompat="@drawable/vertical_bookmark" />
 
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp"
+                android:background="@color/colorBack">
+
                 <TextView
                     android:id="@+id/tv_game_title"
                     android:layout_width="match_parent"
@@ -57,30 +64,27 @@
                     android:text="Title"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:background="@color/cardview_light_background"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintHorizontal_bias="0.0" />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_game_blurb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/cardview_light_background"
                     android:padding="5dp"
-                    android:text="Blurb"
-                    android:textColor="@android:color/black"
-                    android:visibility="invisible"
+                    android:text="Title"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>

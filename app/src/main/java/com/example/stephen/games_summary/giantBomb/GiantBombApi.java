@@ -1,6 +1,7 @@
 package com.example.stephen.games_summary.giantBomb;
 
-import com.example.stephen.games_summary.model.Request;
+import com.example.stephen.games_summary.model.RequestArray;
+import com.example.stephen.games_summary.model.RequestSingle;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -24,10 +25,11 @@ public interface GiantBombApi {
      */
     @GET(GiantBombConstants.BASE_URL +
             GiantBombConstants.GAMES_PATH)
-    public Observable<Request> getGameListRequest(
+    public Observable<RequestArray> getGameListRequest(
             @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
             @Query(GiantBombConstants.FORMAT_QUERY) String format,
-            @Query(GiantBombConstants.FILTER_QUERY) String filter
+            @Query(GiantBombConstants.FILTER_QUERY) String filter,
+            @Query(GiantBombConstants.SORT_QUERY) String sort
     );
 
     /**
@@ -42,7 +44,7 @@ public interface GiantBombApi {
     @GET(GiantBombConstants.BASE_URL +
             GiantBombConstants.GAME_PATH + "{" +
             GiantBombConstants.ID_PATH + "}/")
-    public Observable<Request> getGameRequest(
+    public Observable<RequestSingle> getGameRequest(
             @Path("id") String id,
             @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
             @Query(GiantBombConstants.FORMAT_QUERY) String format
@@ -58,7 +60,7 @@ public interface GiantBombApi {
      */
     @GET(GiantBombConstants.BASE_URL +
             GiantBombConstants.GENRES_PATH)
-    public Observable<Request> getGenresRequest(
+    public Observable<RequestArray> getGenresRequest(
             @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
             @Query(GiantBombConstants.FORMAT_QUERY) String format
     );

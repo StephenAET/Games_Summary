@@ -26,7 +26,7 @@ public class BaseInteractor {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GiantBombConstants.BASE_URL)//Pass the Base URL here for making requests
-                .addConverterFactory(gsonConverterFactory)//Create and Pass the Converter Factory for interpreting the Request Data
+                .addConverterFactory(gsonConverterFactory)//Create and Pass the Converter Factory for interpreting the RequestArray Data
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//Create and Pass the Call Adapter Factory for
                 .client(okHttpClient)
                 .build();

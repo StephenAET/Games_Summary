@@ -1,6 +1,6 @@
 package com.example.stephen.games_summary.mvp.genreList;
 
-import com.example.stephen.games_summary.model.Request;
+import com.example.stephen.games_summary.model.RequestArray;
 
 import io.reactivex.Observable;
 
@@ -11,9 +11,9 @@ import io.reactivex.Observable;
 public interface GenreListInteractor {
 
     /**
-     * Get a Genre List Request
+     * Get a Genre List RequestArray
      * @param filter
      * @return
      */
-    Observable<Request> getGenreListRequest(String filter);
+    Observable<RequestArray> getGenreListRequest(String filter);
 }
