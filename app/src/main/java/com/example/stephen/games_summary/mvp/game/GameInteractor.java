@@ -1,6 +1,7 @@
 package com.example.stephen.games_summary.mvp.game;
 
 import com.example.stephen.games_summary.model.RequestSingle;
+import com.example.stephen.games_summary.model.Result;
 
 import io.reactivex.Observable;
 
@@ -19,4 +20,8 @@ public interface GameInteractor {
      * @return
      */
     Observable<RequestSingle> getGameRequest(String id);
+
+    Result getGameFromRealm(int id);
+    void saveGameToRealm(Result result);
+    void deleteGameFromRealm(int id);
 }

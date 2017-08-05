@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.example.stephen.games_summary.model.Result;
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     EditText searchText;
     Button searchButton;
 
-    GameListFragment gameListFragment;
+
+
+    TextView notice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +36,18 @@ public class MainActivity extends AppCompatActivity {
 
         searchText = (EditText) findViewById(R.id.tv_search_value);
         searchButton = (Button) findViewById(R.id.bt_search_button);
+        notice = (TextView) findViewById(R.id.tv_search_notice);
 
-        gameListFragment = new GameListFragment();
+        GameListFragment gameListFragment = new GameListFragment();
+
+        //TODO Do this more Safely
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notice.setVisibility(View.GONE);
                 gameListFragment.performSearch(searchText.getText().toString());
+                changeDisplayedFragment(gameListFragment);
             }
         });
 

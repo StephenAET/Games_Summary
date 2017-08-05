@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import io.realm.annotations.PrimaryKey;
+
 public class Result {
 
     @SerializedName("aliases")
@@ -38,6 +40,7 @@ public class Result {
     @SerializedName("expected_release_year")
     @Expose
     private Integer expectedReleaseYear;
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;

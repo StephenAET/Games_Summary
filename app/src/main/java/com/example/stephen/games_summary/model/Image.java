@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Image {
 
+
     @SerializedName("icon_url")
     @Expose
     private String iconUrl;

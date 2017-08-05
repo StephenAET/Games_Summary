@@ -7,16 +7,6 @@
     android:background="@color/colorBack">
 
 
-    <TextView
-        android:id="@+id/tv_notice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search for Games using the Search Bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"

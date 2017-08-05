@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -53,7 +54,18 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_main"
+        android:id="@+id/include" />
+
+    <TextView
+        android:id="@+id/tv_search_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:text="Please use the Search Bar"
+        android:textColor="@android:color/white"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="center_vertical|center_horizontal" />
 
     <!--
     app:layout_behavior="@string/appbar_scrolling_view_behavior"

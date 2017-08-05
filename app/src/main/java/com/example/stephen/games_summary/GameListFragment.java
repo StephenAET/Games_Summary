@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.stephen.games_summary.adapter.GameListAdapter;
 import com.example.stephen.games_summary.model.RequestArray;
@@ -38,8 +37,6 @@ public class GameListFragment extends Fragment implements GameListView {
 
     String lastSearch = "";
 
-    TextView notice;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,8 +46,6 @@ public class GameListFragment extends Fragment implements GameListView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        notice = view.findViewById(R.id.tv_notice);
 
         progressBar = view.findViewById(R.id.pb_game_list);
 
@@ -81,7 +76,6 @@ public class GameListFragment extends Fragment implements GameListView {
 
     @Override
     public void onFetchDataStarted() {
-        notice.setVisibility(View.GONE);
         Log.i("RequestArray","Started");
         progressBar.setVisibility(View.VISIBLE);
     }

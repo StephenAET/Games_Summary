@@ -3,6 +3,7 @@ package com.example.stephen.games_summary.mvp.game;
 import android.util.Log;
 
 import com.example.stephen.games_summary.model.RequestSingle;
+import com.example.stephen.games_summary.model.Result;
 import com.example.stephen.games_summary.mvp.BasePresenter;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 
@@ -77,6 +78,14 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
 
                     private void onError(Throwable throwable) {
                         getView().onFetchDataError(throwable);
+
+                        //If shit hits the fan, attempt to load from Realm
+                        Result result = gameInteractor.getGameFromRealm(Integer.parseInt(id));
+                        if (result != null) {
+                            RequestSingle requestSingle = new RequestSingle();
+                            requestSingle.setResult(result);
+                            getView().onFetchDataSuccess(requestSingle);
+                        }
                     }
 
                     /**
