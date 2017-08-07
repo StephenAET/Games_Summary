@@ -9,12 +9,11 @@ import com.example.stephen.games_summary.mvp.MvpPresenter;
 /**
  * Game Presenter implements MVP Presenter
  * Game View/s can be attached to this presenter
- *
  */
 public interface GamePresenter extends MvpPresenter<GameView> {
 
     /**
-     * RequestArray the Game from the interactor
+     * Request the Game from the interactor
      */
     void performGame(String id);
 

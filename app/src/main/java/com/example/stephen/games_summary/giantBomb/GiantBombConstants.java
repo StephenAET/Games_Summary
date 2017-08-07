@@ -41,6 +41,7 @@ public class GiantBombConstants {
     public static final String GAME_PATH = "game/";
     public static final String GAMES_PATH = "games/";
     public static final String GENRES_PATH = "genres/";
+    public static final String REVIEWS_PATH = "review/";
 
     public static final String NAME_FILTER = "name=";
     public static final String GENRE_FILTER = "genre=";

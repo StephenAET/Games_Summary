@@ -18,19 +18,25 @@ public class GameInteractorImpl extends BaseInteractor implements GameInteractor
         return getGiantBombApi().getGameRequest(id, GiantBombConstants.API_KEY_VALUE, GiantBombConstants.JSON);
     }
 
+    /**
+     * Get a Game Result from the Realm
+     * The result wont be complete due to abstraction but it will have the essential data required
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Result getGameFromRealm(int id) {
-        return null;
-        //return (Result) realmHelper.getRealmObject(Result.class,Integer.toString(id));
+        return (Result) realmHelper.getRealmObject(Result.class, id);
     }
 
     @Override
-    public void saveGameToRealm(Result result) {
-        //realmHelper.saveRealmObjectToRealm(result);
+    public boolean saveGameToRealm(Result result) {
+        return realmHelper.saveRealmObjectToRealm(result);
     }
 
     @Override
-    public void deleteGameFromRealm(int id) {
-        //realmHelper.deleteObjectFromRealm(id);
+    public boolean deleteGameFromRealm(int id) {
+        return realmHelper.deleteObjectFromRealm(Result.class, id);
     }
 }

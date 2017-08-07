@@ -15,13 +15,13 @@ import io.reactivex.Observable;
 public interface GameInteractor {
 
     /**
-     * Get a Game RequestArray
+     * Get a Game Request
      * @param id
      * @return
      */
     Observable<RequestSingle> getGameRequest(String id);
 
     Result getGameFromRealm(int id);
-    void saveGameToRealm(Result result);
-    void deleteGameFromRealm(int id);
+    boolean saveGameToRealm(Result result);
+    boolean deleteGameFromRealm(int id);
 }

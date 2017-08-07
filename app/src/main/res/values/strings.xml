@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">Games_Summary</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="single_game_box">single game box</string>
+    <string name="unknown">Unknown</string>
+    <string name="tbd">TBD</string>
+    <string name="no_platforms">No Platforms</string>
+    <string name="no_description_provided">- No Description Provided -</string>
+    <string name="find_developer_in_google_maps">Find Developer in Google Maps</string>
+    <string name="find_game_on_amazon">Find Game on Amazon</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="game_poster">Game Poster</string>
+    <string name="name">Title</string>
+    <string name="deck">Blurb</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="n_a">N/A</string>
 </resources>

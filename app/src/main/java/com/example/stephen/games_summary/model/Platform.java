@@ -4,23 +4,31 @@ package com.example.stephen.games_summary.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Platform {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Platform extends RealmObject {
+
+    @SerializedName("abbreviation")
+    @Expose
+    private String abbreviation;
 
     @SerializedName("api_detail_url")
     @Expose
     private String apiDetailUrl;
+
     @SerializedName("id")
     @Expose
-    private Integer id;
+    @PrimaryKey
+    private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("site_detail_url")
     @Expose
     private String siteDetailUrl;
-    @SerializedName("abbreviation")
-    @Expose
-    private String abbreviation;
 
     public String getApiDetailUrl() {
         return apiDetailUrl;
@@ -30,11 +38,11 @@ public class Platform {
         this.apiDetailUrl = apiDetailUrl;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -61,5 +69,4 @@ public class Platform {
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
-
 }

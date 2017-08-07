@@ -4,30 +4,47 @@ package com.example.stephen.games_summary.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Image {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+public class Image extends RealmObject {
+
+    @SerializedName("id")
+    @Expose
+    @PrimaryKey
+    private int id;
 
     @SerializedName("icon_url")
     @Expose
     private String iconUrl;
+
     @SerializedName("medium_url")
     @Expose
     private String mediumUrl;
+
     @SerializedName("screen_url")
     @Expose
     private String screenUrl;
+
     @SerializedName("small_url")
     @Expose
     private String smallUrl;
+
     @SerializedName("super_url")
     @Expose
     private String superUrl;
+
     @SerializedName("thumb_url")
     @Expose
     private String thumbUrl;
+
     @SerializedName("tiny_url")
     @Expose
     private String tinyUrl;
+
+    @SerializedName("tags")
+    @Expose
+    private String tags;
 
     public String getIconUrl() {
         return iconUrl;
@@ -85,4 +102,19 @@ public class Image {
         this.tinyUrl = tinyUrl;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 }

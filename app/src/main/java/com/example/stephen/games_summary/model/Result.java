@@ -6,9 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Result {
+public class Result extends RealmObject {
 
     @SerializedName("aliases")
     @Expose
@@ -30,20 +32,20 @@ public class Result {
     private String description;
     @SerializedName("expected_release_day")
     @Expose
-    private Integer expectedReleaseDay;
+    private int expectedReleaseDay;
     @SerializedName("expected_release_month")
     @Expose
-    private Integer expectedReleaseMonth;
+    private int expectedReleaseMonth;
     @SerializedName("expected_release_quarter")
     @Expose
-    private Integer expectedReleaseQuarter;
+    private int expectedReleaseQuarter;
     @SerializedName("expected_release_year")
     @Expose
-    private Integer expectedReleaseYear;
+    private int expectedReleaseYear;
     @PrimaryKey
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("image")
     @Expose
     private Image image;
@@ -52,19 +54,52 @@ public class Result {
     private String name;
     @SerializedName("number_of_user_reviews")
     @Expose
-    private Integer numberOfUserReviews;
+    private int numberOfUserReviews;
     @SerializedName("original_game_rating")
     @Expose
-    private List<OriginalGameRating> originalGameRating = null;
+    private RealmList<Document> originalGameRating = null;
     @SerializedName("original_release_date")
     @Expose
     private String originalReleaseDate;
     @SerializedName("platforms")
     @Expose
-    private List<Platform> platforms = null;
+    private RealmList<Platform> platforms = null;
     @SerializedName("site_detail_url")
     @Expose
     private String siteDetailUrl;
+    @SerializedName("score")
+    @Expose
+    private int score;
+    @SerializedName("reviewer")
+    @Expose
+    private String reviewer;
+    @SerializedName("reviews")
+    @Expose
+    private RealmList<Document> reviews;
+
+    public RealmList<Document> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(RealmList<Document> reviews) {
+        this.reviews = reviews;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getAliases() {
         return aliases;
@@ -114,43 +149,43 @@ public class Result {
         this.description = description;
     }
 
-    public Integer getExpectedReleaseDay() {
+    public int getExpectedReleaseDay() {
         return expectedReleaseDay;
     }
 
-    public void setExpectedReleaseDay(Integer expectedReleaseDay) {
+    public void setExpectedReleaseDay(int expectedReleaseDay) {
         this.expectedReleaseDay = expectedReleaseDay;
     }
 
-    public Integer getExpectedReleaseMonth() {
+    public int getExpectedReleaseMonth() {
         return expectedReleaseMonth;
     }
 
-    public void setExpectedReleaseMonth(Integer expectedReleaseMonth) {
+    public void setExpectedReleaseMonth(int expectedReleaseMonth) {
         this.expectedReleaseMonth = expectedReleaseMonth;
     }
 
-    public Integer getExpectedReleaseQuarter() {
+    public int getExpectedReleaseQuarter() {
         return expectedReleaseQuarter;
     }
 
-    public void setExpectedReleaseQuarter(Integer expectedReleaseQuarter) {
+    public void setExpectedReleaseQuarter(int expectedReleaseQuarter) {
         this.expectedReleaseQuarter = expectedReleaseQuarter;
     }
 
-    public Integer getExpectedReleaseYear() {
+    public int getExpectedReleaseYear() {
         return expectedReleaseYear;
     }
 
-    public void setExpectedReleaseYear(Integer expectedReleaseYear) {
+    public void setExpectedReleaseYear(int expectedReleaseYear) {
         this.expectedReleaseYear = expectedReleaseYear;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -170,19 +205,19 @@ public class Result {
         this.name = name;
     }
 
-    public Integer getNumberOfUserReviews() {
+    public int getNumberOfUserReviews() {
         return numberOfUserReviews;
     }
 
-    public void setNumberOfUserReviews(Integer numberOfUserReviews) {
+    public void setNumberOfUserReviews(int numberOfUserReviews) {
         this.numberOfUserReviews = numberOfUserReviews;
     }
 
-    public List<OriginalGameRating> getOriginalGameRating() {
+    public List<Document> getOriginalGameRating() {
         return originalGameRating;
     }
 
-    public void setOriginalGameRating(List<OriginalGameRating> originalGameRating) {
+    public void setOriginalGameRating(RealmList<Document> originalGameRating) {
         this.originalGameRating = originalGameRating;
     }
 
@@ -198,7 +233,7 @@ public class Result {
         return platforms;
     }
 
-    public void setPlatforms(List<Platform> platforms) {
+    public void setPlatforms(RealmList<Platform> platforms) {
         this.platforms = platforms;
     }
 

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Games_Summary</string>
+    <string name="no_description_provided">- No Description Provided -</string>
+    <string name="find_developer_in_google_maps">Find Developer in Google Maps</string>
+    <string name="find_game_on_amazon">Find Game on Amazon</string>
 </resources>

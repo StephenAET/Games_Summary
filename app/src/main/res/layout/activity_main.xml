@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background">
+    android:background="@color/colorCard">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,53 +24,16 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/tv_search_value"
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/search_edit_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/cardview_light_background"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:padding="5dp"
-                    android:text="Name"
-                    android:layout_marginRight="10dp"
-                    android:layout_gravity="center"
-                    android:textColor="@color/colorAccent" />
-
-                <Button
-                    android:id="@+id/bt_search_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@android:drawable/ic_menu_search" />
-
+                    android:layout_height="match_parent"/>
             </LinearLayout>
-
         </android.support.v7.widget.Toolbar>
-
-
-
     </android.support.design.widget.AppBarLayout>
 
-
-    <include layout="@layout/content_main"
-        android:id="@+id/include" />
-
-    <TextView
-        android:id="@+id/tv_search_notice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:text="Please use the Search Bar"
-        android:textColor="@android:color/white"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="center_vertical|center_horizontal" />
-
-    <!--
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    -->
-
-
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -17,7 +17,8 @@ public class GameListInteractorImpl extends BaseInteractor implements GameListIn
 
     @Override
     public Observable<RequestArray> getGameListRequest(String filter) {
-        return getGiantBombApi().getGameListRequest(GiantBombConstants.API_KEY_VALUE, GiantBombConstants.JSON, filter, GiantBombConstants.DATE_DESC)
+        return getGiantBombApi().getGameListRequest(GiantBombConstants.API_KEY_VALUE,
+                GiantBombConstants.JSON, filter, GiantBombConstants.DATE_DESC)
                 .compose(rxSchedulers.applyObservableAsync());
     }
 }

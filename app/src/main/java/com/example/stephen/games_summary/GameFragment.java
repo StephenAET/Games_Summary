@@ -6,14 +6,15 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class GameFragment extends Fragment implements GameView {
     GamePresenter gamePresenter;
     GameInteractor gameInteractor;
 
-    CardView mainCard;
+    ScrollView scrollView;
 
     TextView gameTitle;
     TextView gameDescription;
@@ -57,10 +58,6 @@ public class GameFragment extends Fragment implements GameView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
-
-        //Toast.makeText(getActivity(), gameId+"",Toast.LENGTH_SHORT).show();
-
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
@@ -79,8 +76,8 @@ public class GameFragment extends Fragment implements GameView {
         //saveButton = view.findViewById(R.id.bt_single_save);
 
 
-        mainCard = view.findViewById(R.id.cv_single);
-        mainCard.setVisibility(View.INVISIBLE);
+        scrollView = view.findViewById(R.id.sv_game);
+        scrollView.setVisibility(View.INVISIBLE);
 
         gameId = getArguments().getInt("id");
 
@@ -94,17 +91,30 @@ public class GameFragment extends Fragment implements GameView {
             @Override
             public void onClick(View view) {
 
-                //TODO Handle Realm Issue
-                //if (result != null) {
+                if (result != null) {
 
-                    //if (gameInteractor.getGameFromRealm(gameId) == null) {
-                    //    gameInteractor.saveGameToRealm(result);
-                    //} else {
-                    //    gameInteractor.deleteGameFromRealm(gameId);
-                    //}
-                //}
+                    if (gameInteractor.getGameFromRealm(gameId) == null) {
+                        boolean success = gameInteractor.saveGameToRealm(result);
+
+                        if (success) {
+                            Toast.makeText(getActivity(), "Added to Favorites", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Failed to Favorite", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        boolean success = gameInteractor.deleteGameFromRealm(gameId);
+
+                        if (success) {
+                            Toast.makeText(getActivity(), "Removed from Favorites", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Failed to Remove from Favorites", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
             }
         });
+        saveButton.setVisibility(View.GONE);
 
         //if (gameInteractor.getGameFromRealm(gameId) != null){
         //    saveButton.setBackground();
@@ -121,6 +131,7 @@ public class GameFragment extends Fragment implements GameView {
 
     @Override
     public void onFetchDataError(Throwable e) {
+        Log.e("OOF",e.getLocalizedMessage());
         Toast.makeText(getActivity(), "Ugh " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         progressBar.setVisibility(View.GONE);
     }
@@ -133,7 +144,7 @@ public class GameFragment extends Fragment implements GameView {
     @Override
     public void onFetchDataSuccess(RequestSingle requestSingle) {
 
-        mainCard.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.VISIBLE);
 
         result = requestSingle.getResult();
         gameTitle.setText(result.getName());
@@ -196,6 +207,22 @@ public class GameFragment extends Fragment implements GameView {
                 platforms = platforms + platform.getAbbreviation() + ", ";
             }
             gamePlatforms.setText(platforms);
+        }
+
+        saveButton.setVisibility(View.VISIBLE);
+
+        if (result.getReviews() != null)
+        {
+
+            int id = result.getReviews().get(0).getId();
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", id);
+
+            ReviewFragment reviewFragment = new ReviewFragment();
+            reviewFragment.setArguments(bundle);
+            this.getFragmentManager().beginTransaction()
+                    .replace(R.id.review_container, reviewFragment)
+                    .commit();
         }
     }
 }

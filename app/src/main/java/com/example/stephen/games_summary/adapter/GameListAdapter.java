@@ -1,6 +1,9 @@
 package com.example.stephen.games_summary.adapter;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.stephen.games_summary.MainActivity;
+import com.example.stephen.games_summary.GameFragment;
 import com.example.stephen.games_summary.R;
 import com.example.stephen.games_summary.model.RequestArray;
 import com.example.stephen.games_summary.model.Result;
@@ -21,17 +24,17 @@ import com.squareup.picasso.Picasso;
 
 public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameListViewHolder> {
 
-    private final Context context;
+    private final Activity activity;
     private final RequestArray requestArray;
 
-    public GameListAdapter(Context context, RequestArray requestArray) {
-        this.context = context;
+    public GameListAdapter(Activity activity, RequestArray requestArray) {
+        this.activity = activity;
         this.requestArray = requestArray;
     }
 
     @Override
     public GameListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(context).inflate(R.layout.item_game, parent, false);
+        final View view = LayoutInflater.from(activity).inflate(R.layout.item_game, parent, false);
         return new GameListViewHolder(view);
     }
 
@@ -43,14 +46,14 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
             Result result = requestArray.getResults().get(position);
 
 
-            Picasso.with(this.context).cancelRequest(holder.game_poster);
+            Picasso.with(this.activity).cancelRequest(holder.game_poster);
 
             //Some results don't have images unfortunately, so this handles that exception
             if (result.getImage() != null) {
 
                 //In the event the URL is malformed, the placeholder is used instead
                 try {
-                    Picasso.with(context)
+                    Picasso.with(activity)
                             .load(result.getImage().getSmallUrl())
                             .centerCrop()
                             .fit()
@@ -98,8 +101,18 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
                     requestArray.getResults().get(getAdapterPosition()).getName(),
                     Toast.LENGTH_SHORT).show();
 
-            MainActivity.doTheThing(requestArray.getResults()
-                    .get(getAdapterPosition()));
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", requestArray
+                    .getResults()
+                    .get(getAdapterPosition())
+                    .getId());
+
+            Fragment gameFragment = new GameFragment();
+            gameFragment.setArguments(bundle);
+
+            activity.getFragmentManager().beginTransaction().replace(R.id.main_container, gameFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit();
         }
     }
 }

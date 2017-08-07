@@ -32,10 +32,7 @@ public class GameListFragment extends Fragment implements GameListView {
     GameListPresenter gameListPresenter;
     GameListInteractor gameListInteractor;
     RecyclerView recyclerView;
-
     ProgressBar progressBar;
-
-    String lastSearch = "";
 
     @Nullable
     @Override
@@ -48,30 +45,28 @@ public class GameListFragment extends Fragment implements GameListView {
         super.onViewCreated(view, savedInstanceState);
 
         progressBar = view.findViewById(R.id.pb_game_list);
-
-        //Find Recycler View in Fragment Layout
-        recyclerView = view.findViewById(R.id.recycler_view);
-
         progressBar.setVisibility(View.GONE);
 
         int columns = 2;
-
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             columns = 3;
         }
 
-        //Set the Recycler's Layout Manager
+        //Setup the RecyclerView
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(columns, 1));
-
         RequestArray requestArray = new RequestArray();
         requestArray.setResults(new ArrayList<Result>(0));
-
         recyclerView.setAdapter(new GameListAdapter(getActivity(), requestArray));
 
         //Setup the Interactor and Presenter
         gameListInteractor = new GameListInteractorImpl();
         gameListPresenter = new GameListPresenterImpl(gameListInteractor);
         gameListPresenter.attachView(this);
+
+        //Get the Search Query and Perform the Request
+        String query = getArguments().getString("query");
+        gameListPresenter.performGameList("name:"+query);
     }
 
     @Override
@@ -94,24 +89,15 @@ public class GameListFragment extends Fragment implements GameListView {
 
     @Override
     public void onFetchDataSuccess(RequestArray requestArray) {
-
         Log.i("RequestArray","SUCCESS");
-
         for(Result result : requestArray.getResults()){
             Log.i("Result", result.getName());
         }
-
         recyclerView.swapAdapter(new GameListAdapter(getActivity(), requestArray), false);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    public void performSearch(String search){
-        lastSearch = search;
-        Log.i("RequestArray", "Searching with query " + search);
-        gameListPresenter.performGameList("name:"+search);
     }
 }

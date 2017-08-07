@@ -1,9 +1,8 @@
-package com.example.stephen.games_summary.mvp.game;
+package com.example.stephen.games_summary.mvp.review;
 
 import android.util.Log;
 
 import com.example.stephen.games_summary.model.RequestSingle;
-import com.example.stephen.games_summary.model.Result;
 import com.example.stephen.games_summary.mvp.BasePresenter;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 
@@ -14,30 +13,29 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by Stephen on 01/08/2017.
+ * Created by Stephen on 07/08/2017.
  */
 
-public class GamePresenterImpl extends BasePresenter<GameView> implements GamePresenter {
+public class ReviewPresenterImpl extends BasePresenter<ReviewView> implements ReviewPresenter {
+
 
     //Presenter requires an Interactor
-    GameInteractor gameInteractor;
+    ReviewInteractor reviewInteractor;
 
     //Disposable for making Async Requests
     CompositeDisposable disposable = new CompositeDisposable();
 
     /**
-     * Create Game List Presenter
-     * @param gameInteractor The Presenter needs a Game List Interactor to perform Requests
+     * Create Review Presenter
+     * @param reviewInteractor The Presenter needs a Game List Interactor to perform Requests
      */
-    public GamePresenterImpl(GameInteractor gameInteractor){
-        this.gameInteractor = gameInteractor;
+    public ReviewPresenterImpl(ReviewInteractor reviewInteractor){
+        this.reviewInteractor = reviewInteractor;
     }
 
-    /**
-     * Perform a Disposable Game List RequestArray
-     */
+
     @Override
-    public void performGame(String id) {
+    public void performReview(String id) {
 
         //Make sure the View is attached before attempting to do anything
         checkViewAttached();
@@ -65,7 +63,7 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
 
                             //Perform a Disposable Request (With an Observable)
                             // Subscribe and Observe it
-                            gameInteractor.getGameRequest(id)
+                            reviewInteractor.getReviewRequest(id)
                                     //Perform on new Thread
                                     .subscribeOn(Schedulers.newThread())
                                     //Observe on UI Thread
@@ -77,19 +75,11 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
 
                     private void onError(Throwable throwable) {
                         getView().onFetchDataError(throwable);
-
-                        //If shit hits the fan, attempt to load from Realm
-                        Result result = gameInteractor.getGameFromRealm(Integer.parseInt(id));
-                        if (result != null) {
-                            RequestSingle requestSingle = new RequestSingle();
-                            requestSingle.setResult(result);
-                            getView().onFetchDataSuccess(requestSingle);
-                        }
                     }
 
                     /**
                      * The view will be notified that the RequestArray Succeeded and given the Game RequestArray Data
-                     * @param requestSingle The Game RequestArray Data
+                     * @param requestSingle The Game RequestSingle Data
                      */
                     private void success(RequestSingle requestSingle) {
                         getView().onFetchDataSuccess(requestSingle);
@@ -97,7 +87,6 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
                     }
                 });
     }
-
 
     /**
      * Upon detaching the View, the disposable needs to be cleared

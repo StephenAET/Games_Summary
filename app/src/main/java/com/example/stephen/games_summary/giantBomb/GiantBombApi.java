@@ -45,7 +45,7 @@ public interface GiantBombApi {
             GiantBombConstants.GAME_PATH + "{" +
             GiantBombConstants.ID_PATH + "}/")
     public Observable<RequestSingle> getGameRequest(
-            @Path("id") String id,
+            @Path(GiantBombConstants.ID_PATH) String id,
             @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
             @Query(GiantBombConstants.FORMAT_QUERY) String format
     );
@@ -65,8 +65,24 @@ public interface GiantBombApi {
             @Query(GiantBombConstants.FORMAT_QUERY) String format
     );
 
+
     /**
-     * End Point 4 - Get Review?
+     * End Point 4 - Get Review ,
+     *
+     * @param api_key
+     * @param format
+     * @return
+     */
+    @GET(GiantBombConstants.BASE_URL +
+            GiantBombConstants.REVIEWS_PATH + "{" +
+            GiantBombConstants.ID_PATH + "}/")
+    public Observable<RequestSingle> getReviewRequest(
+            @Path(GiantBombConstants.ID_PATH) String id,
+            @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
+            @Query(GiantBombConstants.FORMAT_QUERY) String format
+    );
+
+    /*
      * End Point 5 - Get
      */
 }

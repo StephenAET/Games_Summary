@@ -3,10 +3,6 @@ package com.example.stephen.games_summary.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Stephen on 03/08/2017.
- */
-
 public class RequestSingle {
 
     @SerializedName("error")
@@ -14,19 +10,19 @@ public class RequestSingle {
     private String error;
     @SerializedName("limit")
     @Expose
-    private Integer limit;
+    private int limit;
     @SerializedName("offset")
     @Expose
-    private Integer offset;
+    private int offset;
     @SerializedName("number_of_page_results")
     @Expose
-    private Integer numberOfPageResults;
+    private int numberOfPageResults;
     @SerializedName("number_of_total_results")
     @Expose
-    private Integer numberOfTotalResults;
+    private int numberOfTotalResults;
     @SerializedName("status_code")
     @Expose
-    private Integer statusCode;
+    private int statusCode;
     @SerializedName("results")
     @Expose
     private Result results = null;
@@ -39,43 +35,43 @@ public class RequestSingle {
         this.error = error;
     }
 
-    public Integer getLimit() {
+    public int getLimit() {
         return limit;
     }
 
-    public void setLimit(Integer limit) {
+    public void setLimit(int limit) {
         this.limit = limit;
     }
 
-    public Integer getOffset() {
+    public int getOffset() {
         return offset;
     }
 
-    public void setOffset(Integer offset) {
+    public void setOffset(int offset) {
         this.offset = offset;
     }
 
-    public Integer getNumberOfPageResults() {
+    public int getNumberOfPageResults() {
         return numberOfPageResults;
     }
 
-    public void setNumberOfPageResults(Integer numberOfPageResults) {
+    public void setNumberOfPageResults(int numberOfPageResults) {
         this.numberOfPageResults = numberOfPageResults;
     }
 
-    public Integer getNumberOfTotalResults() {
+    public int getNumberOfTotalResults() {
         return numberOfTotalResults;
     }
 
-    public void setNumberOfTotalResults(Integer numberOfTotalResults) {
+    public void setNumberOfTotalResults(int numberOfTotalResults) {
         this.numberOfTotalResults = numberOfTotalResults;
     }
 
-    public Integer getStatusCode() {
+    public int getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(Integer statusCode) {
+    public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 

@@ -1,20 +1,30 @@
-
 package com.example.stephen.games_summary.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Concept {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+/**
+ * Created by Stephen on 07/08/2017.
+ */
+
+public class Document extends RealmObject {
 
     @SerializedName("api_detail_url")
     @Expose
     private String apiDetailUrl;
+
     @SerializedName("id")
     @Expose
-    private Integer id;
+    @PrimaryKey
+    private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("site_detail_url")
     @Expose
     private String siteDetailUrl;
@@ -27,11 +37,11 @@ public class Concept {
         this.apiDetailUrl = apiDetailUrl;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,5 +60,4 @@ public class Concept {
     public void setSiteDetailUrl(String siteDetailUrl) {
         this.siteDetailUrl = siteDetailUrl;
     }
-
 }
