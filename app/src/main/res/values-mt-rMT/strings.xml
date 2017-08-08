@@ -4,4 +4,6 @@
     <string name="no_description_provided">- No Description Provided -</string>
     <string name="find_developer_in_google_maps">Find Developer in Google Maps</string>
     <string name="find_game_on_amazon">Find Game on Amazon</string>
+    <string name="favorites">Favorites</string>
+    <string name="platforms">List by Platform</string>
 </resources>

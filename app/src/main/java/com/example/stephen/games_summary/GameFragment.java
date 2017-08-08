@@ -51,6 +51,8 @@ public class GameFragment extends Fragment implements GameView {
 
     Result result;
 
+    ImageView bookmark;
+
     FloatingActionButton saveButton;
 
     int gameId;
@@ -73,9 +75,6 @@ public class GameFragment extends Fragment implements GameView {
         gamePoster = view.findViewById(R.id.img_single_game_box);
         progressBar = view.findViewById(R.id.pb_single);
 
-        //saveButton = view.findViewById(R.id.bt_single_save);
-
-
         scrollView = view.findViewById(R.id.sv_game);
         scrollView.setVisibility(View.INVISIBLE);
 
@@ -85,6 +84,13 @@ public class GameFragment extends Fragment implements GameView {
         gamePresenter = new GamePresenterImpl(gameInteractor);
         gamePresenter.attachView(this);
         gamePresenter.performGame(Integer.toString(gameId));
+
+        bookmark = view.findViewById(R.id.img_single_game_bookmark);
+        if (gameInteractor.getGameFromRealm(gameId) != null){
+            bookmark.setVisibility(View.VISIBLE);
+        } else {
+            bookmark.setVisibility(View.INVISIBLE);
+        }
 
         saveButton = view.findViewById(R.id.fb_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +104,7 @@ public class GameFragment extends Fragment implements GameView {
 
                         if (success) {
                             Toast.makeText(getActivity(), "Added to Favorites", Toast.LENGTH_SHORT).show();
+                            bookmark.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(getActivity(), "Failed to Favorite", Toast.LENGTH_SHORT).show();
                         }
@@ -107,6 +114,7 @@ public class GameFragment extends Fragment implements GameView {
 
                         if (success) {
                             Toast.makeText(getActivity(), "Removed from Favorites", Toast.LENGTH_SHORT).show();
+                            bookmark.setVisibility(View.INVISIBLE);
                         } else {
                             Toast.makeText(getActivity(), "Failed to Remove from Favorites", Toast.LENGTH_SHORT).show();
                         }

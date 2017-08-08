@@ -14,9 +14,10 @@ import android.widget.Toast;
 
 import com.example.stephen.games_summary.GameFragment;
 import com.example.stephen.games_summary.R;
-import com.example.stephen.games_summary.model.RequestArray;
 import com.example.stephen.games_summary.model.Result;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by Stephen on 01/08/2017.
@@ -25,11 +26,15 @@ import com.squareup.picasso.Picasso;
 public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameListViewHolder> {
 
     private final Activity activity;
-    private final RequestArray requestArray;
+    private final List<Result> results;
+    private final List<Integer> bookmarks;
 
-    public GameListAdapter(Activity activity, RequestArray requestArray) {
+    //private List<Integer> ids = new ArrayList<>();
+
+    public GameListAdapter(Activity activity, List<Result> results, List<Integer> bookmarks) {
         this.activity = activity;
-        this.requestArray = requestArray;
+        this.results = results;
+        this.bookmarks = bookmarks;
     }
 
     @Override
@@ -41,10 +46,8 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
     @Override
     public void onBindViewHolder(GameListViewHolder holder, int position) {
 
-        if (requestArray != null && requestArray.getResults().size() > 0)
-        {
-            Result result = requestArray.getResults().get(position);
-
+        if (results != null && results.size() > 0) {
+            Result result = results.get(position);
 
             Picasso.with(this.activity).cancelRequest(holder.game_poster);
 
@@ -65,6 +68,11 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
                 holder.game_poster.setImageResource(R.drawable.missing_visual);
             }
 
+            if (bookmarks != null && bookmarks.contains(result.getId())) {
+                holder.game_bookmark.setVisibility(View.VISIBLE);
+            } else {
+                holder.game_bookmark.setVisibility(View.INVISIBLE);
+            }
 
             holder.game_title.setText(result.getName());
             holder.game_blurb.setText(result.getDeck());
@@ -73,7 +81,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
 
     @Override
     public int getItemCount() {
-        return requestArray.getResults().size();
+        return results.size();
     }
 
     public class GameListViewHolder extends RecyclerView.ViewHolder
@@ -83,6 +91,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
         TextView game_title;
         TextView game_blurb;
         ImageView game_poster;
+        ImageView game_bookmark;
 
         public GameListViewHolder(View view) {
             super(view);
@@ -91,6 +100,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
             game_title = view.findViewById(R.id.tv_game_title);
             game_blurb = view.findViewById(R.id.tv_game_blurb);
             game_poster = view.findViewById(R.id.img_game_poster);
+            game_bookmark = view.findViewById(R.id.img_bookmark);
 
             view.setOnClickListener(this);
         }
@@ -98,12 +108,11 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
         @Override
         public void onClick(View view) {
             Toast.makeText(view.getContext(),
-                    requestArray.getResults().get(getAdapterPosition()).getName(),
+                    results.get(getAdapterPosition()).getName(),
                     Toast.LENGTH_SHORT).show();
 
             Bundle bundle = new Bundle();
-            bundle.putInt("id", requestArray
-                    .getResults()
+            bundle.putInt("id", results
                     .get(getAdapterPosition())
                     .getId());
 

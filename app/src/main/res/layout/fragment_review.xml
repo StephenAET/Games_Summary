@@ -10,8 +10,10 @@
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:numStars="5"
+        android:stepSize="0.1"
+        android:layout_margin="5dp"
+        style="?android:attr/ratingBarStyleSmall"
         tools:layout_editor_absoluteX="59dp"
         tools:layout_editor_absoluteY="109dp" />
 

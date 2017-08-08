@@ -85,5 +85,5 @@ public class RequestArray {
     public void setResults(List<Result> results) {
         this.results = results;
     }
-
+    
 }

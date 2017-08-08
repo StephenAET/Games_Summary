@@ -59,10 +59,11 @@ public interface GiantBombApi {
      * @return
      */
     @GET(GiantBombConstants.BASE_URL +
-            GiantBombConstants.GENRES_PATH)
-    public Observable<RequestArray> getGenresRequest(
+            GiantBombConstants.PLATFORMS_PATH)
+    public Observable<RequestArray> getPlatformsRequest(
             @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
-            @Query(GiantBombConstants.FORMAT_QUERY) String format
+            @Query(GiantBombConstants.FORMAT_QUERY) String format,
+            @Query(GiantBombConstants.SORT_QUERY) String sort
     );
 
 

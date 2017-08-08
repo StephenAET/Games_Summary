@@ -14,4 +14,6 @@
     <string name="deck">Blurb</string>
     <string name="title_activity_maps">Map</string>
     <string name="n_a">N/A</string>
+    <string name="favorites">Favorites</string>
+    <string name="platforms">List by Platform</string>
 </resources>

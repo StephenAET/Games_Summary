@@ -1,6 +1,9 @@
 
 package com.example.stephen.games_summary.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +13,7 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Result extends RealmObject {
+public class Result extends RealmObject  {
 
     @SerializedName("aliases")
     @Expose
@@ -244,5 +247,4 @@ public class Result extends RealmObject {
     public void setSiteDetailUrl(String siteDetailUrl) {
         this.siteDetailUrl = siteDetailUrl;
     }
-
 }

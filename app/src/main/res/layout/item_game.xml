@@ -33,16 +33,17 @@
                     android:id="@+id/img_bookmark"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
                     android:background="@drawable/vertical_bookmark_shadow"
-                    android:paddingBottom="20dp"
-                    android:paddingRight="20dp"
-                    android:visibility="invisible"
+                    android:contentDescription="@string/bookmark"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="5dp"
+                    android:tint="@color/colorPrimary"
+                    android:visibility="visible"
                     app:layout_constraintLeft_toLeftOf="@+id/img_game_poster"
                     app:layout_constraintTop_toTopOf="@+id/img_game_poster"
                     app:srcCompat="@drawable/vertical_bookmark"
-                    android:contentDescription="@string/bookmark" />
+                    android:layout_marginLeft="8dp" />
+
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout

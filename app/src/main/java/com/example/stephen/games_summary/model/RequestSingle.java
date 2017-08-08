@@ -82,4 +82,5 @@ public class RequestSingle {
     public void setResult(Result result) {
         this.results = result;
     }
+
 }

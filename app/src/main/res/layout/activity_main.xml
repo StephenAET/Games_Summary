@@ -27,7 +27,9 @@
                 <android.support.v7.widget.SearchView
                     android:id="@+id/search_edit_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

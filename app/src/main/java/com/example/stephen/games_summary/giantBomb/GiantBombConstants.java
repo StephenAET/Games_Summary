@@ -40,12 +40,15 @@ public class GiantBombConstants {
      */
     public static final String GAME_PATH = "game/";
     public static final String GAMES_PATH = "games/";
-    public static final String GENRES_PATH = "genres/";
+    public static final String PLATFORMS_PATH = "platforms/";
     public static final String REVIEWS_PATH = "review/";
 
     public static final String NAME_FILTER = "name=";
     public static final String GENRE_FILTER = "genre=";
 
     public static final String SORT_QUERY = "sort";
-    public static final String DATE_DESC = "original_release_date:desc";
+
+    public static final String DATE_DESC_PLATFORM = "release_date:desc,date_last_updated=desc";
+
+    public static final String DATE_DESC = "original_release_date:desc,date_last_updated=desc";
 }

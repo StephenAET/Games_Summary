@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary.mvp.gameList;
+package com.example.stephen.games_summary.mvp.platformList;
 
 import android.util.Log;
 
@@ -12,27 +12,19 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by Stephen on 31/07/2017.
+ * Created by Stephen on 08/08/2017.
  */
 
-public class GameListPresenterImpl extends BasePresenter<GameListView> implements GameListPresenter {
+public class PlatformListPresenterImpl extends BasePresenter<PlatformListView> implements PlatformListPresenter {
 
-    //Presenter requires an Interactor
-    GameListInteractor gameListInteractor;
+    PlatformListInteractor platformListInteractor;
 
-    /**
-     * Create Game List Presenter
-     * @param gameListInteractor The Presenter needs a Game List Interactor to perform Requests
-     */
-    public GameListPresenterImpl(GameListInteractor gameListInteractor){
-         this.gameListInteractor = gameListInteractor;
+    public PlatformListPresenterImpl(PlatformListInteractor platformListInteractor) {
+        this.platformListInteractor = platformListInteractor;
     }
 
-    /**
-     * Perform a Disposable Game List RequestArray
-     */
     @Override
-    public void performGameList(String filter) {
+    public void performPlatformList() {
 
         //Make sure the View is attached before attempting to do anything
         checkViewAttached();
@@ -54,13 +46,13 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
                     public void accept(@NonNull Boolean aBoolean) throws Exception {
 
                         //If there is a connection, attempt to perform the RequestArray
-                        if (aBoolean){
+                        if (aBoolean) {
 
                             Log.i("RequestArray", "Internet Connection Available, Attempting RequestArray");
 
                             //Perform a Disposable RequestArray (With an Observable)
                             // Subscribe and Observe it
-                            gameListInteractor.getGameListRequest(filter)
+                            platformListInteractor.getPlatformListRequest()
                                     //Perform on new Thread
                                     .subscribeOn(Schedulers.newThread())
                                     //Observe on UI Thread
@@ -78,6 +70,7 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
 
                     /**
                      * If the Disposable RequestArray Fails, the view needs to know
+                     *
                      * @param throwable What caused the RequestArray to Fail
                      */
                     private void onError(Throwable throwable) {
@@ -85,7 +78,9 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
                     }
 
                     /**
-                     * The view will be notified that the RequestArray Succeeded and given the Game List RequestArray Data
+                     * The view will be notified that the RequestArray Succeeded and given the Platform
+                     * List RequestArray Data
+                     *
                      * @param requestArray The Game List RequestArray Data
                      */
                     private void success(RequestArray requestArray) {
@@ -93,5 +88,6 @@ public class GameListPresenterImpl extends BasePresenter<GameListView> implement
                         getView().onFetchDataCompleted();
                     }
                 });
+
     }
 }
