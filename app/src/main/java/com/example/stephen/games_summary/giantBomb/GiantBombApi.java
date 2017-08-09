@@ -51,8 +51,8 @@ public interface GiantBombApi {
     );
 
     /**
-     * End Point 3 - Get Genres,
-     * These can be used for a Drop down for filtering Games Lists by Genre
+     * End Point 3 - Get Platforms,
+     * These can be used for a Drop down for filtering Games Lists by Platform
      *
      * @param api_key
      * @param format
@@ -68,7 +68,8 @@ public interface GiantBombApi {
 
 
     /**
-     * End Point 4 - Get Review ,
+     * End Point 4 - Get a Review,
+     * This can be used for getting the review score for display in the game layout
      *
      * @param api_key
      * @param format
@@ -82,8 +83,4 @@ public interface GiantBombApi {
             @Query(GiantBombConstants.API_KEY_QUERY) String api_key,
             @Query(GiantBombConstants.FORMAT_QUERY) String format
     );
-
-    /*
-     * End Point 5 - Get
-     */
 }

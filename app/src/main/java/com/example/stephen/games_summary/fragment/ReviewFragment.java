@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary;
+package com.example.stephen.games_summary.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 
+import com.example.stephen.games_summary.R;
 import com.example.stephen.games_summary.model.RequestSingle;
 import com.example.stephen.games_summary.mvp.review.ReviewInteractor;
 import com.example.stephen.games_summary.mvp.review.ReviewInteractorImpl;

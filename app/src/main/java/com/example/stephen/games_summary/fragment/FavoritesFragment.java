@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary;
+package com.example.stephen.games_summary.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

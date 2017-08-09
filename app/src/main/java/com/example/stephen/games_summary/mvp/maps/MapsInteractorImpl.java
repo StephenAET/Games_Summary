@@ -1,53 +1,45 @@
-package com.example.stephen.games_summary.mvp;
+package com.example.stephen.games_summary.mvp.maps;
 
-import com.example.stephen.games_summary.helper.RealmHelper;
-import com.example.stephen.games_summary.giantBomb.GiantBombApi;
-import com.example.stephen.games_summary.giantBomb.GiantBombConstants;
+import com.example.stephen.games_summary.googleMaps.GoogleMapsApi;
+import com.example.stephen.games_summary.googleMaps.GoogleMapsConstants;
+import com.example.stephen.games_summary.model.Map.MapRequest;
+import com.example.stephen.games_summary.util.RxSchedulers;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-import io.realm.Realm;
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Stephen on 31/07/2017.
+ * Created by Stephen on 09/08/2017.
  */
 
-public class BaseInteractor {
+public class MapsInteractorImpl implements MapsInteractor {
 
-    GiantBombApi giantBombApi;
+    RxSchedulers rxSchedulers = new RxSchedulers();
 
-    protected RealmHelper realmHelper;
+    GoogleMapsApi googleMapsApi;
 
-    /**
-     * Setup the Giant Bomb API and Realm Helper using the Default Instance
-     */
-    public BaseInteractor(){
-
-        realmHelper = new RealmHelper(Realm.getDefaultInstance());
-
+    public MapsInteractorImpl() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create();
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GiantBombConstants.BASE_URL)//Pass the Base URL here for making requests
+                .baseUrl(GoogleMapsConstants.BASE_URL)//Pass the Base URL here for making requests
                 .addConverterFactory(gsonConverterFactory)//Create and Pass the Converter Factory for interpreting the RequestArray Data
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//Create and Pass the Call Adapter Factory for
                 .client(okHttpClient)
                 .build();
 
-        giantBombApi = retrofit.create(GiantBombApi.class);
+        googleMapsApi = retrofit.create(GoogleMapsApi.class);
     }
 
-    public GiantBombApi getGiantBombApi(){
-        return giantBombApi;
-    }
-
-    public RealmHelper getRealmHelper(){
-        return realmHelper;
+    @Override
+    public Observable<MapRequest> getMapsRequest(String address) {
+        return googleMapsApi.getGoogleMapsRequestTest(address, GoogleMapsConstants.KEY_VALUE);
     }
 }

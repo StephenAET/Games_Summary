@@ -11,5 +11,6 @@
 
     <color name="colorCard">#f4f4f5</color>
     <color name="colorCardDark">#e0e1e0</color>
+    <color name="colorMissing">#e8edf0</color>
 
 </resources>

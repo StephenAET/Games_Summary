@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.stephen.games_summary.GameFragment;
+import com.example.stephen.games_summary.fragment.GameFragment;
 import com.example.stephen.games_summary.R;
 import com.example.stephen.games_summary.model.Result;
 import com.squareup.picasso.Picasso;
@@ -119,7 +119,9 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
             Fragment gameFragment = new GameFragment();
             gameFragment.setArguments(bundle);
 
-            activity.getFragmentManager().beginTransaction().replace(R.id.main_container, gameFragment)
+            activity.getFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, gameFragment)
+                    .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
         }

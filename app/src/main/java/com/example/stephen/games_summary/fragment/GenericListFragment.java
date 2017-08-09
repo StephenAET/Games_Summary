@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary;
+package com.example.stephen.games_summary.fragment;
 
 import android.app.Fragment;
 import android.content.res.Configuration;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.stephen.games_summary.R;
+import com.example.stephen.games_summary.helper.RealmHelper;
 import com.example.stephen.games_summary.adapter.GameListAdapter;
 import com.example.stephen.games_summary.model.Result;
 
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 
 /**
  * Created by Stephen on 08/08/2017.
@@ -80,8 +83,10 @@ public class GenericListFragment extends Fragment {
         List<Result> results = new ArrayList<>();
         RealmHelper realmHelper = new RealmHelper(Realm.getDefaultInstance());
         try {
-            realmHelper.getRealmObjects(Result.class).forEach(result ->
-                    results.add((Result) result));
+            List<RealmObject> realmObjects = realmHelper.getRealmObjects(Result.class);
+            for(RealmObject realmObject : realmObjects){
+                results.add((Result)realmObject);
+            }
         } catch (Exception e){
             Log.e("Oof", e.getLocalizedMessage());
         }

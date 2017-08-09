@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary;
+package com.example.stephen.games_summary.helper;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary;
+package com.example.stephen.games_summary.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.stephen.games_summary.adapter.GameListAdapter;
 import com.example.stephen.games_summary.model.RequestArray;
+import com.example.stephen.games_summary.model.Result;
 import com.example.stephen.games_summary.mvp.gameList.GameListInteractor;
 import com.example.stephen.games_summary.mvp.gameList.GameListInteractorImpl;
 import com.example.stephen.games_summary.mvp.gameList.GameListPresenter;
@@ -26,8 +27,6 @@ public class GameListFragment extends GenericListFragment implements GameListVie
     GameListPresenter gameListPresenter;
     GameListInteractor gameListInteractor;
 
-    private RequestArray requestArray;
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -40,7 +39,6 @@ public class GameListFragment extends GenericListFragment implements GameListVie
         //Get the Search Query and Perform the Request
         String header = getArguments().getString("header");
         String query = getArguments().getString("query");
-
         gameListPresenter.performGameList(header + ":" + query);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -53,31 +51,30 @@ public class GameListFragment extends GenericListFragment implements GameListVie
 
     @Override
     public void onFetchDataStarted() {
-        Log.i("RequestArray","Started");
+        Log.i("RequestArray", "Started");
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onFetchDataError(Throwable e) {
-        Log.i("RequestArray","Error : " + e.getLocalizedMessage());
+        Log.i("RequestArray", "Error : " + e.getLocalizedMessage());
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onFetchDataCompleted() {
-        Log.i("RequestArray","Completed");
+        Log.i("RequestArray", "Completed");
         progressBar.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onFetchDataSuccess(RequestArray requestArray) {
-
-        this.requestArray = requestArray;
-
-        Log.i("RequestArray","SUCCESS");
+        Log.i("RequestArray", "SUCCESS");
         List<Integer> bookmarks = new ArrayList<>();
-        getFavorites().forEach(result -> bookmarks.add(result.getId()));
+        for (Result result : getFavorites()) {
+            bookmarks.add(result.getId());
+        }
         recyclerView.swapAdapter(new GameListAdapter(getActivity(), requestArray.getResults(), bookmarks), false);
     }
 

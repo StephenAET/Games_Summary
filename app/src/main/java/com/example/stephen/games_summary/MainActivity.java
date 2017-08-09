@@ -1,5 +1,6 @@
 package com.example.stephen.games_summary;
 
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.DialogInterface;
@@ -13,11 +14,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
+import com.example.stephen.games_summary.application.App;
+import com.example.stephen.games_summary.fragment.FavoritesFragment;
+import com.example.stephen.games_summary.fragment.GameListFragment;
 import com.example.stephen.games_summary.model.RequestArray;
 import com.example.stephen.games_summary.model.Result;
 import com.example.stephen.games_summary.mvp.platformList.PlatformListInteractor;
 import com.example.stephen.games_summary.mvp.platformList.PlatformListInteractorImpl;
-import com.example.stephen.games_summary.mvp.platformList.PlatformListPresenter;
 import com.example.stephen.games_summary.mvp.platformList.PlatformListPresenterImpl;
 import com.example.stephen.games_summary.mvp.platformList.PlatformListView;
 
@@ -26,14 +29,22 @@ import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity implements PlatformListView {
+public class MainActivity extends AppCompatActivity implements PlatformListView, FragmentManager.OnBackStackChangedListener{
 
     Toolbar toolbar;
     SearchView searchView;
-
-    PlatformListPresenter platformListPresenter;
-
     List<Result> platforms = new ArrayList<>(0);
+
+    PlatformListPresenterImpl platformListPresenter;
+
+    void initializeDagger(){
+        ((App)getApplication()).getPlatformListPresenterComponent().inject(this);
+    }
+
+    //@Inject
+    public void setPlatformListPresenter(PlatformListPresenterImpl platformListPresenter){
+        this.platformListPresenter = platformListPresenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements PlatformListView 
         Fabric.with(this, new Crashlytics());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
 
         //Set the toolbar in the layout as the activities Support Action Bar
         setSupportActionBar(toolbar);
@@ -74,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements PlatformListView 
         platformListPresenter = new PlatformListPresenterImpl(platformListInteractor);
         platformListPresenter.attachView(this);
         platformListPresenter.performPlatformList();
+
+        getFragmentManager().addOnBackStackChangedListener(this);
+        shouldDisplayHomeUp();
     }
 
     private void displaySearchResults(String header, String query){
@@ -138,13 +151,18 @@ public class MainActivity extends AppCompatActivity implements PlatformListView 
 
     @Override
     public void onFetchDataSuccess(RequestArray requestArray) {
-        requestArray.getResults().forEach(result -> platforms.add(result));
+        for(Result result : requestArray.getResults()) {
+            platforms.add(result);
+        }
     }
 
     private void displayPlatformsDialog(){
 
         List<String> platformNameList = new ArrayList<>(0);
-        platforms.forEach(genre -> platformNameList.add(genre.getName()));
+        for(Result platform : platforms){
+            platformNameList.add(platform.getName());
+        }
+
         String[] platformNameArray = platformNameList.toArray(new String[0]);
 
         AlertDialog.Builder b = new AlertDialog.Builder(this);
@@ -164,5 +182,21 @@ public class MainActivity extends AppCompatActivity implements PlatformListView 
             }
         });
         b.show();
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        shouldDisplayHomeUp();
+    }
+
+    private void shouldDisplayHomeUp() {
+        boolean canBack = getFragmentManager().getBackStackEntryCount() > 0;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(canBack);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        getFragmentManager().popBackStack();
+        return true;
     }
 }

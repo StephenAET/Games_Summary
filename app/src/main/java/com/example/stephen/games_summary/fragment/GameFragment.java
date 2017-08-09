@@ -1,4 +1,4 @@
-package com.example.stephen.games_summary;
+package com.example.stephen.games_summary.fragment;
 
 import android.app.Fragment;
 import android.graphics.Color;
@@ -12,12 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.stephen.games_summary.R;
 import com.example.stephen.games_summary.model.Platform;
 import com.example.stephen.games_summary.model.RequestSingle;
 import com.example.stephen.games_summary.model.Result;
@@ -55,6 +57,10 @@ public class GameFragment extends Fragment implements GameView {
 
     FloatingActionButton saveButton;
 
+    //Button buttonOfNoImportance;
+
+    FrameLayout reviewContainer;
+
     int gameId;
 
     @Nullable
@@ -75,6 +81,21 @@ public class GameFragment extends Fragment implements GameView {
         gamePoster = view.findViewById(R.id.img_single_game_box);
         progressBar = view.findViewById(R.id.pb_single);
 
+        reviewContainer = view.findViewById(R.id.review_container);
+
+        /*
+        buttonOfNoImportance = view.findViewById(R.id.btn_of_no_importance);
+        buttonOfNoImportance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, new DeveloperMapFragment())
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit();
+            }
+        });*/
+
         scrollView = view.findViewById(R.id.sv_game);
         scrollView.setVisibility(View.INVISIBLE);
 
@@ -86,7 +107,7 @@ public class GameFragment extends Fragment implements GameView {
         gamePresenter.performGame(Integer.toString(gameId));
 
         bookmark = view.findViewById(R.id.img_single_game_bookmark);
-        if (gameInteractor.getGameFromRealm(gameId) != null){
+        if (gameInteractor.getGameFromRealm(gameId) != null) {
             bookmark.setVisibility(View.VISIBLE);
         } else {
             bookmark.setVisibility(View.INVISIBLE);
@@ -139,7 +160,7 @@ public class GameFragment extends Fragment implements GameView {
 
     @Override
     public void onFetchDataError(Throwable e) {
-        Log.e("OOF",e.getLocalizedMessage());
+        Log.e("OOF", e.getLocalizedMessage());
         Toast.makeText(getActivity(), "Ugh " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         progressBar.setVisibility(View.GONE);
     }
@@ -219,8 +240,7 @@ public class GameFragment extends Fragment implements GameView {
 
         saveButton.setVisibility(View.VISIBLE);
 
-        if (result.getReviews() != null)
-        {
+        if (result.getReviews() != null) {
 
             int id = result.getReviews().get(0).getId();
             Bundle bundle = new Bundle();
@@ -228,8 +248,9 @@ public class GameFragment extends Fragment implements GameView {
 
             ReviewFragment reviewFragment = new ReviewFragment();
             reviewFragment.setArguments(bundle);
+
             this.getFragmentManager().beginTransaction()
-                    .replace(R.id.review_container, reviewFragment)
+                    .replace(reviewContainer.getId(), reviewFragment)
                     .commit();
         }
     }
