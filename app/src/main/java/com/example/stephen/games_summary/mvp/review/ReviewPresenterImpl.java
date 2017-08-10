@@ -9,6 +9,7 @@ import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -23,7 +24,7 @@ public class ReviewPresenterImpl extends BasePresenter<ReviewView> implements Re
     ReviewInteractor reviewInteractor;
 
     //Disposable for making Async Requests
-    CompositeDisposable disposable = new CompositeDisposable();
+    Disposable disposable = new CompositeDisposable();
 
     /**
      * Create Review Presenter
@@ -63,7 +64,7 @@ public class ReviewPresenterImpl extends BasePresenter<ReviewView> implements Re
 
                             //Perform a Disposable Request (With an Observable)
                             // Subscribe and Observe it
-                            reviewInteractor.getReviewRequest(id)
+                            disposable = reviewInteractor.getReviewRequest(id)
                                     //Perform on new Thread
                                     .subscribeOn(Schedulers.newThread())
                                     //Observe on UI Thread
@@ -94,6 +95,9 @@ public class ReviewPresenterImpl extends BasePresenter<ReviewView> implements Re
     @Override
     public void detachView() {
         super.detachView();
-        disposable.clear();
+        if (disposable != null){
+            Log.i("Disposable", "Review Disposable Disposed");
+            disposable.dispose();
+        }
     }
 }

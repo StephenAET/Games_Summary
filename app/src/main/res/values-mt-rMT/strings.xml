@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Games_Summary</string>
-    <string name="no_description_provided">- No Description Provided -</string>
-    <string name="find_developer_in_google_maps">Find Developer in Google Maps</string>
-    <string name="find_game_on_amazon">Find Game on Amazon</string>
-    <string name="favorites">Favorites</string>
-    <string name="platforms">List by Platform</string>
+    <string name="app_name">Logħob Summarija </string>
+    <string name="favorites">Favoriti</string>
+    <string name="find_developer_in_google_maps">Sib Developer fuq Google Maps</string>
+    <string name="find_game_on_amazon">Sib Logħob fuq Amazon</string>
+    <string name="game_fragment_fetch_completed">Sab Logħob</string>
+    <string name="game_fragment_fetch_error">Ma setax isib Logħob</string>
+    <string name="game_list_fragment_fetch_error">Ma setax isib lista ta Logħob  List b\'success</string>
+    <string name="game_list_fragment_fetch_success">Sab lista ta Logħob b\'success</string>
+    <string name="no_description_provided">Ebda deskrizzjoni pprovduta</string>
+    <string name="platforms">Lista bil-pjattaforma</string>
+    <string name="game_favorite_success">Logħba inżidet fil-favoriti tiegħek</string>
+    <string name="game_favorite_failure">Ma setax inżidet fil-favoriti tiegħek</string>
+    <string name="game_unfavorite_success">Imneħħi mill-favoriti tiegħek</string>
+    <string name="game_unfavorite_failure">Ma setgħetx tneħħi mill-favoriti tiegħek</string>
 </resources>

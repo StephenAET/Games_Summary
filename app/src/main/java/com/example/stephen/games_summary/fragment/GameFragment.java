@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -17,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.stephen.games_summary.R;
 import com.example.stephen.games_summary.model.Platform;
@@ -120,24 +121,35 @@ public class GameFragment extends Fragment implements GameView {
 
                 if (result != null) {
 
+                    CoordinatorLayout coordinatorLayout = getActivity().findViewById(R.id.coordinator);
+
                     if (gameInteractor.getGameFromRealm(gameId) == null) {
                         boolean success = gameInteractor.saveGameToRealm(result);
 
                         if (success) {
-                            Toast.makeText(getActivity(), "Added to Favorites", Toast.LENGTH_SHORT).show();
+                            if (coordinatorLayout != null) {
+                                Snackbar.make(coordinatorLayout, R.string.game_favorite_success, Snackbar.LENGTH_SHORT).show();
+                            }
                             bookmark.setVisibility(View.VISIBLE);
                         } else {
-                            Toast.makeText(getActivity(), "Failed to Favorite", Toast.LENGTH_SHORT).show();
-                        }
 
+                            if (coordinatorLayout != null) {
+                                Snackbar.make(coordinatorLayout, R.string.game_favorite_failure, Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
                     } else {
                         boolean success = gameInteractor.deleteGameFromRealm(gameId);
 
                         if (success) {
-                            Toast.makeText(getActivity(), "Removed from Favorites", Toast.LENGTH_SHORT).show();
+                            if (coordinatorLayout != null) {
+                                Snackbar.make(coordinatorLayout, R.string.game_unfavorite_success, Snackbar.LENGTH_SHORT).show();
+                            }
                             bookmark.setVisibility(View.INVISIBLE);
                         } else {
-                            Toast.makeText(getActivity(), "Failed to Remove from Favorites", Toast.LENGTH_SHORT).show();
+                            if (coordinatorLayout != null) {
+                                Snackbar.make(coordinatorLayout, R.string.game_unfavorite_failure, Snackbar.LENGTH_SHORT).show();
+                            }
+
                         }
                     }
                 }
@@ -153,27 +165,35 @@ public class GameFragment extends Fragment implements GameView {
 
     @Override
     public void onFetchDataStarted() {
-        //Toast.makeText(getActivity(), "Starting", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void onFetchDataError(Throwable e) {
-        Log.e("OOF", e.getLocalizedMessage());
-        Toast.makeText(getActivity(), "Ugh " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        Snackbar.make(getActivity().findViewById(R.id.coordinator) , e.getLocalizedMessage(), Snackbar.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
+
+        CoordinatorLayout coordinatorLayout = getActivity().findViewById(R.id.coordinator);
+        if (coordinatorLayout != null) {
+            Snackbar.make(coordinatorLayout, R.string.game_fragment_fetch_error, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onFetchDataCompleted() {
         progressBar.setVisibility(View.GONE);
+
+        CoordinatorLayout coordinatorLayout = getActivity().findViewById(R.id.coordinator);
+        if (coordinatorLayout != null) {
+            Snackbar.make(coordinatorLayout, R.string.game_fragment_fetch_completed, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onFetchDataSuccess(RequestSingle requestSingle) {
-
         scrollView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
 
         result = requestSingle.getResult();
         gameTitle.setText(result.getName());
@@ -186,6 +206,7 @@ public class GameFragment extends Fragment implements GameView {
             //In the event the URLs are malformed, the placeholder is used instead
             try {
                 if (result.getImage().getScreenUrl() != null) {
+
                     Picasso.with(getActivity())
                             .load(result.getImage().getScreenUrl())
                             .centerCrop()
@@ -196,6 +217,7 @@ public class GameFragment extends Fragment implements GameView {
                     gameBackDropSet = true;
                 }
                 if (result.getImage().getSmallUrl() != null) {
+
                     Picasso.with(getActivity())
                             .load(result.getImage().getSmallUrl())
                             .centerCrop()
@@ -240,18 +262,31 @@ public class GameFragment extends Fragment implements GameView {
 
         saveButton.setVisibility(View.VISIBLE);
 
-        if (result.getReviews() != null) {
+        if (result.getReviews() != null && result.getReviews().size() > 0) {
 
-            int id = result.getReviews().get(0).getId();
-            Bundle bundle = new Bundle();
-            bundle.putInt("id", id);
+            try {
+                int id = result.getReviews().get(0).getId();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", id);
 
-            ReviewFragment reviewFragment = new ReviewFragment();
-            reviewFragment.setArguments(bundle);
+                ReviewFragment reviewFragment = new ReviewFragment();
+                reviewFragment.setArguments(bundle);
 
-            this.getFragmentManager().beginTransaction()
-                    .replace(reviewContainer.getId(), reviewFragment)
-                    .commit();
+                this.getFragmentManager().beginTransaction()
+                        .replace(reviewContainer.getId(), reviewFragment)
+                        .commit();
+            } catch (Exception e){
+                Log.e("Game Fragment", e.getLocalizedMessage());
+                reviewContainer.setVisibility(View.INVISIBLE);
+            }
+        } else {
+            reviewContainer.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        gamePresenter.detachView();
     }
 }

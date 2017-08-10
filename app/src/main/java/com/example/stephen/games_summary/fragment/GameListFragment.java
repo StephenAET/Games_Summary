@@ -2,10 +2,13 @@ package com.example.stephen.games_summary.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
+import com.example.stephen.games_summary.R;
 import com.example.stephen.games_summary.adapter.GameListAdapter;
 import com.example.stephen.games_summary.model.RequestArray;
 import com.example.stephen.games_summary.model.Result;
@@ -59,6 +62,11 @@ public class GameListFragment extends GenericListFragment implements GameListVie
     public void onFetchDataError(Throwable e) {
         Log.i("RequestArray", "Error : " + e.getLocalizedMessage());
         progressBar.setVisibility(View.GONE);
+
+        CoordinatorLayout coordinatorLayout = getActivity().findViewById(R.id.coordinator);
+        if (coordinatorLayout != null) {
+            Snackbar.make(coordinatorLayout, R.string.game_list_fragment_fetch_error, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -66,6 +74,11 @@ public class GameListFragment extends GenericListFragment implements GameListVie
         Log.i("RequestArray", "Completed");
         progressBar.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
+
+        CoordinatorLayout coordinatorLayout = getActivity().findViewById(R.id.coordinator);
+        if (coordinatorLayout != null) {
+            Snackbar.make(coordinatorLayout, R.string.game_list_fragment_fetch_success, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -81,5 +94,6 @@ public class GameListFragment extends GenericListFragment implements GameListVie
     @Override
     public void onDestroy() {
         super.onDestroy();
+        gameListPresenter.detachView();
     }
 }

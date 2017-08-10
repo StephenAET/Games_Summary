@@ -8,6 +8,7 @@ import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -18,6 +19,8 @@ import io.reactivex.schedulers.Schedulers;
 public class PlatformListPresenterImpl extends BasePresenter<PlatformListView> implements PlatformListPresenter {
 
     PlatformListInteractor platformListInteractor;
+
+    Disposable disposable;
 
     public PlatformListPresenterImpl(PlatformListInteractor platformListInteractor) {
         this.platformListInteractor = platformListInteractor;
@@ -52,19 +55,13 @@ public class PlatformListPresenterImpl extends BasePresenter<PlatformListView> i
 
                             //Perform a Disposable RequestArray (With an Observable)
                             // Subscribe and Observe it
-                            platformListInteractor.getPlatformListRequest()
+                            disposable = platformListInteractor.getPlatformListRequest()
                                     //Perform on new Thread
                                     .subscribeOn(Schedulers.newThread())
                                     //Observe on UI Thread
                                     .observeOn(AndroidSchedulers.mainThread())
                                     //React to Result/s
                                     .subscribe(this::success, this::onError);
-                        } else {
-
-                            Log.i("RequestArray", "No Connection Available, Not attempting RequestArray");
-                            //TODO Do something else if there is no Internet
-
-                            getView().onFetchDataCompleted();
                         }
                     }
 
@@ -74,7 +71,9 @@ public class PlatformListPresenterImpl extends BasePresenter<PlatformListView> i
                      * @param throwable What caused the RequestArray to Fail
                      */
                     private void onError(Throwable throwable) {
-                        getView().onFetchDataError(throwable);
+                        if (getView() != null){
+                            getView().onFetchDataError(throwable);
+                        }
                     }
 
                     /**
@@ -84,10 +83,21 @@ public class PlatformListPresenterImpl extends BasePresenter<PlatformListView> i
                      * @param requestArray The Game List RequestArray Data
                      */
                     private void success(RequestArray requestArray) {
-                        getView().onFetchDataSuccess(requestArray);
-                        getView().onFetchDataCompleted();
+                        if (getView() != null){
+                            getView().onFetchDataSuccess(requestArray);
+                            getView().onFetchDataCompleted();
+                        }
                     }
                 });
+    }
 
+    @Override
+    public void detachView() {
+        super.detachView();
+
+        if (disposable != null) {
+            Log.i("Disposable", "PlatformList Disposable Disposed");
+            disposable.dispose();
+        }
     }
 }

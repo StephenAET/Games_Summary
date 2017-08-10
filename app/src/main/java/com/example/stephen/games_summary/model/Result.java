@@ -1,13 +1,8 @@
 
 package com.example.stephen.games_summary.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -216,7 +211,7 @@ public class Result extends RealmObject  {
         this.numberOfUserReviews = numberOfUserReviews;
     }
 
-    public List<Document> getOriginalGameRating() {
+    public RealmList<Document> getOriginalGameRating() {
         return originalGameRating;
     }
 
@@ -232,7 +227,7 @@ public class Result extends RealmObject  {
         this.originalReleaseDate = originalReleaseDate;
     }
 
-    public List<Platform> getPlatforms() {
+    public RealmList<Platform> getPlatforms() {
         return platforms;
     }
 

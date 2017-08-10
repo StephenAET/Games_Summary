@@ -10,10 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.stephen.games_summary.fragment.GameFragment;
 import com.example.stephen.games_summary.R;
+import com.example.stephen.games_summary.fragment.GameFragment;
 import com.example.stephen.games_summary.model.Result;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +48,9 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
         if (results != null && results.size() > 0) {
             Result result = results.get(position);
 
+
+            //Log.i("TEST", "Game ID : "+ result.getId() +  " - IMAGE ID : " + result.getImage().getId()+"");
+
             Picasso.with(this.activity).cancelRequest(holder.game_poster);
 
             //Some results don't have images unfortunately, so this handles that exception
@@ -56,11 +58,13 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
 
                 //In the event the URL is malformed, the placeholder is used instead
                 try {
+                    String url = result.getImage().getSmallUrl();
                     Picasso.with(activity)
-                            .load(result.getImage().getSmallUrl())
-                            .centerCrop()
+                            .load(url)
                             .fit()
+                            .centerCrop()
                             .into(holder.game_poster);
+
                 } catch (Exception e) {
                     holder.game_poster.setImageResource(R.drawable.missing_visual);
                 }
@@ -107,9 +111,6 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameLi
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(),
-                    results.get(getAdapterPosition()).getName(),
-                    Toast.LENGTH_SHORT).show();
 
             Bundle bundle = new Bundle();
             bundle.putInt("id", results

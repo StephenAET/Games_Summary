@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 
@@ -46,7 +47,27 @@ public class RealmHelper {
             });
         } catch (Exception e) {
             Log.e("Realm", e.getLocalizedMessage());
-            return  false;
+            return false;
+        }
+        return true;
+    }
+
+    public <T extends RealmObject> boolean saveRealmObjectsToRealm(final RealmList<T> objects) {
+
+        try {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    try {
+                        realm.insertOrUpdate(objects);
+                    } catch (Exception e) {
+                        Log.e("Realm Error", e.getLocalizedMessage());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            Log.e("Realm", e.getLocalizedMessage());
+            return false;
         }
         return true;
     }

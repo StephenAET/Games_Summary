@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements PlatformListView,
     List<Result> platforms = new ArrayList<>(0);
 
     PlatformListPresenterImpl platformListPresenter;
+
+    Snackbar snackbar;
 
     void initializeDagger(){
         ((App)getApplication()).getPlatformListPresenterComponent().inject(this);
@@ -198,5 +201,11 @@ public class MainActivity extends AppCompatActivity implements PlatformListView,
     public boolean onSupportNavigateUp() {
         getFragmentManager().popBackStack();
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        platformListPresenter.detachView();
     }
 }

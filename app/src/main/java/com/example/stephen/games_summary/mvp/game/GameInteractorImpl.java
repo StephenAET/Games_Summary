@@ -27,11 +27,23 @@ public class GameInteractorImpl extends BaseInteractor implements GameInteractor
      */
     @Override
     public Result getGameFromRealm(int id) {
+
+
+
+
         return (Result) realmHelper.getRealmObject(Result.class, id);
     }
 
     @Override
     public boolean saveGameToRealm(Result result) {
+
+        //The nested Realm Object 'Image' inside the Result must be saved first
+        // before saving the Result itself.
+        //realmHelper.saveRealmObjectToRealm(result.getImage());
+        //realmHelper.saveRealmObjectsToRealm(result.getOriginalGameRating());
+        //realmHelper.saveRealmObjectsToRealm(result.getPlatforms());
+        //realmHelper.saveRealmObjectsToRealm(result.getReviews());
+
         return realmHelper.saveRealmObjectToRealm(result);
     }
 

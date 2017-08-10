@@ -68,4 +68,10 @@ public class ReviewFragment extends Fragment implements ReviewView {
         reviewScore.setMax(5);
         reviewScore.setProgress(requestSingle.getResult().getScore());
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        reviewPresenter.detachView();
+    }
 }

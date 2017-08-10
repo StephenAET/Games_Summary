@@ -10,6 +10,7 @@ import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -23,13 +24,14 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
     GameInteractor gameInteractor;
 
     //Disposable for making Async Requests
-    CompositeDisposable disposable = new CompositeDisposable();
+    Disposable disposable = new CompositeDisposable();
 
     /**
      * Create Game List Presenter
+     *
      * @param gameInteractor The Presenter needs a Game List Interactor to perform Requests
      */
-    public GamePresenterImpl(GameInteractor gameInteractor){
+    public GamePresenterImpl(GameInteractor gameInteractor) {
         this.gameInteractor = gameInteractor;
     }
 
@@ -65,22 +67,36 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
 
                             //Perform a Disposable Request (With an Observable)
                             // Subscribe and Observe it
-                            gameInteractor.getGameRequest(id)
+
+                            disposable = gameInteractor.getGameRequest(id)
                                     //Perform on new Thread
                                     .subscribeOn(Schedulers.newThread())
                                     //Observe on UI Thread
                                     .observeOn(AndroidSchedulers.mainThread())
                                     //React to Result/s
                                     .subscribe(this::success, this::onError);
+                        } else {
+                            if (getView() != null)
+                            {
+                                Log.i("RequestArray", "No Internet Connection Available, Attempting Realm Retrieval");
+
+                                Result result = gameInteractor.getGameFromRealm(Integer.parseInt(id));
+                                if (result != null) {
+                                    RequestSingle requestSingle = new RequestSingle();
+                                    requestSingle.setResult(result);
+                                    getView().onFetchDataSuccess(requestSingle);
+                                }
+                            }
                         }
                     }
 
                     private void onError(Throwable throwable) {
                         getView().onFetchDataError(throwable);
 
-                        //If shit hits the fan, attempt to load from Realm
+                        Log.i("RequestArray", "Request Failed, Attempting Realm Retrieval");
+
                         Result result = gameInteractor.getGameFromRealm(Integer.parseInt(id));
-                        if (result != null) {
+                        if (result != null && getView() != null) {
                             RequestSingle requestSingle = new RequestSingle();
                             requestSingle.setResult(result);
                             getView().onFetchDataSuccess(requestSingle);
@@ -92,8 +108,10 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
                      * @param requestSingle The Game RequestArray Data
                      */
                     private void success(RequestSingle requestSingle) {
-                        getView().onFetchDataSuccess(requestSingle);
-                        getView().onFetchDataCompleted();
+                        if (getView() != null){
+                            getView().onFetchDataSuccess(requestSingle);
+                            getView().onFetchDataCompleted();
+                        }
                     }
                 });
     }
@@ -105,6 +123,10 @@ public class GamePresenterImpl extends BasePresenter<GameView> implements GamePr
     @Override
     public void detachView() {
         super.detachView();
-        disposable.clear();
+
+        if (disposable != null) {
+            Log.i("Disposable", "Game Disposable Disposed");
+            disposable.dispose();
+        }
     }
 }

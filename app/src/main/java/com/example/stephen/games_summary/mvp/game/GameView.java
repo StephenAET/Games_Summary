@@ -17,5 +17,4 @@ public interface GameView extends MvpView {
      * @param requestSingle The Game RequestArray Data
      */
     void onFetchDataSuccess(RequestSingle requestSingle);
-
 }
