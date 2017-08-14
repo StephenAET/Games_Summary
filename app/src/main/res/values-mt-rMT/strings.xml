@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Logħob Summarija </string>
+    <string name="app_name">Game Pinboard</string>
     <string name="favorites">Favoriti</string>
     <string name="find_developer_in_google_maps">Sib Developer fuq Google Maps</string>
     <string name="find_game_on_amazon">Sib Logħob fuq Amazon</string>
