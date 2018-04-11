@@ -13,8 +13,8 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.example.Stephen.games_summary_backend.backend.RegistrationEndpoint,
-                com.example.Stephen.games_summary_backend.backend.MessagingEndpoint
+            <param-value>com.strawdev.Stephen.games_summary_backend.backend.RegistrationEndpoint,
+                com.strawdev.Stephen.games_summary_backend.backend.MessagingEndpoint
             </param-value>
         </init-param>
     </servlet>

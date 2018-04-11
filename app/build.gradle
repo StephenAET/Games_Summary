@@ -28,7 +28,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "com.example.stephen.games_summary"
+        applicationId "com.strawdev.stephen.games_summary"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1

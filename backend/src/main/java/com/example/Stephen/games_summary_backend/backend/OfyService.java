@@ -1,4 +1,4 @@
-package com.example.Stephen.games_summary_backend.backend;
+package com.strawdev.Stephen.games_summary_backend.backend;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;

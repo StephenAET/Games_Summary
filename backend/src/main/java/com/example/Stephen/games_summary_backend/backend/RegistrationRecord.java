@@ -1,4 +1,4 @@
-package com.example.Stephen.games_summary_backend.backend;
+package com.strawdev.Stephen.games_summary_backend.backend;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;

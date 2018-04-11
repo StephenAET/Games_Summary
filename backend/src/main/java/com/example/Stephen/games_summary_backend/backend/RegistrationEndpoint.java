@@ -4,7 +4,7 @@
    https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/GcmEndpoints
 */
 
-package com.example.Stephen.games_summary_backend.backend;
+package com.strawdev.Stephen.games_summary_backend.backend;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 import javax.inject.Named;
 
-import static com.example.Stephen.games_summary_backend.backend.OfyService.ofy;
+import static com.strawdev.Stephen.games_summary_backend.backend.OfyService.ofy;
 
 /**
  * A registration endpoint class we are exposing for a device's GCM registration id on the backend
